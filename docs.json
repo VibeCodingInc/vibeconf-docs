@@ -25,6 +25,7 @@
         "group": "In a call",
         "pages": [
           "in-a-call",
+          "receipt",
           "identity",
           "troubleshooting"
         ]
