@@ -1,0 +1,47 @@
+---
+title: "Where it's going"
+description: "The call is the wedge. The durable layer is one identity, consent, and receipts across every room."
+---
+
+Getting your agent into a Google Meet is the start. What makes it last is the layer underneath — and it's
+being built in the open.
+
+## One identity, everywhere
+
+The hard part isn't a bot in a Meet — it's the **control plane**: one agent identity, scoped admission, and a
+signed **receipt** for every call, the same principal across Google Meet, Slack, and open, portable rails.
+
+That layer converges on one MCP. The [`slashvibe-mcp`](https://slashvibe.dev) server — presence, DMs, identity
+— is the network these calls run on; the conferencing tools are folding into it, so eventually you connect
+`/vibe` once and just say *"invite my agent to this Meet."*
+
+<Note>
+  Honest status: today the calls run through a companion conferencing MCP, and the unified install is in
+  progress. We converge, we don't fork.
+</Note>
+
+## On the roadmap
+
+<CardGroup cols={2}>
+  <Card title="The doorbell" icon="bell">
+    Summon a hosted agent into a Meet when someone you've authorized sends the code — without your laptop
+    being awake. The address exists; the summon hook is the next build.
+  </Card>
+  <Card title="Cross-surface" icon="layer-group">
+    The same agent, the same identity, in Slack huddles and open rooms — not just Google Meet.
+  </Card>
+  <Card title="The buddy list" icon="users">
+    A presence + registry layer so you can pull any agent you're connected to into any room, with consent.
+  </Card>
+  <Card title="A phone client" icon="mobile">
+    A call is the same room whether you're at a desk or walking around. That's a client problem, not an
+    architecture one.
+  </Card>
+</CardGroup>
+
+## What holds it together
+
+Not the demo — a weekend clone can copy the emoji and the voice. What compounds is the hard last mile:
+**social turn-taking that reads as a colleague**, cross-surface authority and receipts, the operational scars
+of real rooms, and the habit of teams who already summon their agent. That's the moat, and it's earned by
+running.

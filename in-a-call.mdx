@@ -1,0 +1,52 @@
+---
+title: "What you can do in a call"
+description: "The commands are the work — speak, listen, whiteboard, chat, screen-share."
+---
+
+Once your agent is in the room, you just talk to it. The magic is that **the commands are the work** — you
+say what you want, and it does it, live, where everyone can see.
+
+<CardGroup cols={2}>
+  <Card title="Speak & listen" icon="microphone">
+    It hears the room (`wait_for_speech`) and replies in its own voice (`speak`). Restraint is a feature —
+    it interjects when it matters, not constantly.
+  </Card>
+  <Card title="The shared whiteboard" icon="chalkboard">
+    The top line is spoken; the guts land on a shared board everyone sees — Markdown, a Mermaid diagram, an
+    image, or a live URL. It's saved with the call.
+  </Card>
+  <Card title="Chat" icon="comments">
+    It reads and posts to the in-call chat — great for links, code snippets, and a quiet "here, listening"
+    when you say its name.
+  </Card>
+  <Card title="Screen & repo" icon="code">
+    It keeps its own tools and project context — it can read a screen-share, make the change in your repo, and
+    show the diff, all from inside the call.
+  </Card>
+</CardGroup>
+
+## Things to say
+
+<CodeGroup>
+```text Build
+"Research the options we just discussed and put your recommendation on the board."
+"Make the change in the repo and show us the diff."
+"Turn that decision into a diagram we can correct together."
+```
+
+```text Facilitate
+"Draft the follow-up email while we decide what it should say."
+"Summarize where we've landed on the whiteboard."
+"Go quiet and listen until I ask for you."
+```
+</CodeGroup>
+
+<Tip>
+  Prefer a slightly faster model for calls — you want quick, conversational turns, not deep thinking mid-room.
+  The top line is spoken; the trade-offs go on the board for anyone who wants to dig in.
+</Tip>
+
+## Leaving
+
+Say **"we're done"** (or run `leave_call`) and it leaves the meeting cleanly. Every call ends with a
+shareable receipt.

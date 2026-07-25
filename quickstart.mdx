@@ -1,0 +1,47 @@
+---
+title: "Quickstart"
+description: "From download to your agent in a Google Meet — about 60 seconds."
+---
+
+<Note>
+  **What you need:** a Mac, a **Claude subscription**, and the Terminal app (every Mac has it). That's it —
+  the setup wizard installs anything else, including Claude Code.
+</Note>
+
+<Steps>
+  <Step title="Download & open the app">
+    Grab the [Vibeconferencing app](https://github.com/wanderingstan/vibeconf-app/releases/latest),
+    drag it to Applications, and open it. It's the "body" that carries your agent into the call — signed,
+    notarized, and open-source.
+  </Step>
+  <Step title="Let the wizard set you up">
+    A quick first-run wizard checks for **Claude Code** and **installs it for you if it's missing**, wires up
+    the `vibeconferencing` MCP, and lets you **name your bot**. Allow Mic + Camera (and Automation, so it can
+    auto-find your open Meet).
+  </Step>
+  <Step title="Open a Google Meet">
+    In Chrome, Brave, or Safari — a new meeting or a calendar one, whatever you're in.
+  </Step>
+  <Step title="Say the word">
+    In your project's Claude Code / Codex / Cursor session, run:
+    ```bash
+    /join-call
+    ```
+    It auto-detects your open Meet and knocks. **Admit it** when it appears — then just talk.
+  </Step>
+</Steps>
+
+## Bringing a specific agent
+
+Run `/join-call` **from the project you want in the call** — the bot takes its name and voice from that
+session (see [Naming & identity](/identity)). To force a named profile:
+
+```bash
+/join-call <meet-link> SAL
+```
+
+<Tip>
+  Not a Claude Code user? Codex and Cursor work too — see the
+  [agent page](/agent) for the one-line paste, or the app's
+  [quickstart](https://github.com/wanderingstan/vibeconf-app/blob/main/docs/quickstart.md).
+</Tip>

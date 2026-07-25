@@ -1,0 +1,39 @@
+---
+title: "Troubleshooting"
+description: "The real gotchas, and the one-move fix for each."
+---
+
+Most snags have a one-move fix. If something feels broken rather than slow, it's almost always one of these.
+
+<AccordionGroup>
+  <Accordion title="/join-call says 'no tools' or isn't there" icon="plug">
+    The `vibeconferencing` MCP dropped — it does that whenever the desktop app restarts. Run **`/mcp`**,
+    reconnect `vibeconferencing`, and try again.
+  </Accordion>
+  <Accordion title="The bot is stuck in the waiting room" icon="hourglass">
+    A human has to click **Admit** — cross-org Meets always require it. If the knock went stale, have the
+    session **re-knock** (leave and rejoin) so a fresh admit prompt appears.
+  </Accordion>
+  <Accordion title="'Which profile?' / it can't route the name" icon="user-question">
+    The name must match a **running** app profile. Run `list_call_instances` to see what's up; with a single
+    instance running, use `/join-call` with **no name** and it drives the one that's there.
+  </Accordion>
+  <Accordion title="It joined as a generic bot, not my agent" icon="id-card">
+    You invited from the wrong session. Run `/join-call` **from the project folder** whose agent you want —
+    the name and voice come from there. See [Naming & identity](/identity).
+  </Accordion>
+  <Accordion title="It's re-reading old speech / replanning the whole call" icon="rotate">
+    A caption-replay glitch on older builds. Update to the latest app; if it happens live, have the bot quit
+    and rejoin to clear the feed.
+  </Accordion>
+  <Accordion title="Changing the name or voice mid-call did nothing" icon="shuffle">
+    A name/voice change is a **body handoff**, not a live toggle — the bot leaves and re-knocks under the new
+    identity, and you admit it again. Watch the Meet for a fresh "waiting to be admitted".
+  </Accordion>
+</AccordionGroup>
+
+## The one-liner
+
+<Note>
+  App open + Meet open → `/join-call` → **Admit** → talk. If the tools are missing, `/mcp` reconnect first.
+</Note>

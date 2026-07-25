@@ -1,0 +1,54 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Vibeconferencing",
+  "description": "Bring your coding agent into a Google Meet — its own voice, a face that makes people smile, and the work on a shared whiteboard.",
+  "colors": {
+    "primary": "#6B8FFF",
+    "light": "#8AABFF",
+    "dark": "#6B8FFF"
+  },
+  "appearance": {
+    "default": "dark"
+  },
+  "navigation": {
+    "groups": [
+      {
+        "group": "Get started",
+        "pages": [
+          "index",
+          "quickstart",
+          "agent"
+        ]
+      },
+      {
+        "group": "In a call",
+        "pages": [
+          "in-a-call",
+          "identity",
+          "troubleshooting"
+        ]
+      },
+      {
+        "group": "The network",
+        "pages": [
+          "network"
+        ]
+      }
+    ]
+  },
+  "navbar": {
+    "primary": {
+      "type": "button",
+      "label": "Download the app",
+      "href": "https://github.com/wanderingstan/vibeconf-app/releases/latest"
+    }
+  },
+  "footer": {
+    "socials": {
+      "github": "https://github.com/wanderingstan/vibeconf-app",
+      "website": "https://vibeconf.app"
+    }
+  },
+  "favicon": "/favicon.svg"
+}

@@ -1,0 +1,62 @@
+---
+title: "For your coding agent"
+description: "This page is written to be read by an agent. Paste one line and it onboards itself — even mid-call."
+---
+
+If you're a **coding agent** (Claude Code, Codex, Cursor) reading this: your operator wants you in their
+Google Meet. Here's everything you need. If you're a human, paste the block below into your agent.
+
+## The one line
+
+```text
+Read https://docs.vibeconf.app and get yourself into my Google Meet.
+Make sure the Vibeconferencing app is running and the `vibeconferencing` MCP
+is connected (run /mcp and reconnect if it isn't). Then /join-call the Meet
+I have open — join as yourself, taking your name and voice from this project.
+Knock, and I'll admit you.
+```
+
+That's the whole onboarding. Everything below is the detail an agent needs to follow it.
+
+## What to do
+
+<Steps>
+  <Step title="Confirm the tools are connected">
+    You drive the call through the `vibeconferencing` MCP. If `/join-call` reports no tools, run `/mcp` and
+    reconnect `vibeconferencing` — it drops whenever the desktop app restarts.
+  </Step>
+  <Step title="Join the call">
+    Call `join_call` with the Meet code or link (or nothing, to auto-detect the open Meet). You appear in the
+    grid as an emoji tile with your own voice.
+  </Step>
+  <Step title="Wait to be admitted">
+    Cross-org Meets require a human to click **Admit**. If you're stuck in the waiting room, ask them to admit
+    you, or re-knock.
+  </Step>
+  <Step title="Participate">
+    Listen with `wait_for_speech`, reply with `speak`, put the work on the `whiteboard`, and read/write chat.
+    Take your name and personality from your project (see [Naming & identity](/identity)).
+  </Step>
+</Steps>
+
+## The MCP tools
+
+<Note>
+  These are the standalone `vibeconferencing` MCP tools. On the unified `/vibe` MCP they surface as
+  `vibe_meet_*` (`vibe_meet_listen`, `vibe_meet_speak`, …) — same capabilities, one install.
+</Note>
+
+| Tool | What it does |
+|---|---|
+| `join_call` | Join a Meet (by link/code, or auto-detect the open one) |
+| `wait_for_speech` | Long-poll until someone finishes a turn — the efficient way to listen |
+| `speak` | Say something out loud (your own voice) |
+| `send_chat` / `read_chat` | Post to / read the in-call chat |
+| `whiteboard` | Draw on the one shared whiteboard (Markdown / Mermaid / a URL) |
+| `list_call_instances` | See which bot profiles are running |
+| `leave_call` | Leave |
+
+<Warning>
+  Always make your presence clear and follow the meeting's consent rules. You are a visible participant with
+  a name, not a hidden listener.
+</Warning>
