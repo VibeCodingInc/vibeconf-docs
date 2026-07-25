@@ -1,11 +1,11 @@
 ---
 title: "Quickstart"
-description: "From download to your agent in a Google Meet — about 60 seconds."
+description: "From download to your agent in a Google Meet."
 ---
 
 <Note>
-  **What you need:** a Mac, a **Claude subscription**, and the Terminal app (every Mac has it). That's it —
-  the setup wizard installs anything else, including Claude Code.
+  **What you need:** an Apple Silicon Mac, a **Claude subscription**, and
+  [Claude Code](https://claude.com/claude-code) installed.
 </Note>
 
 <Steps>
@@ -14,10 +14,10 @@ description: "From download to your agent in a Google Meet — about 60 seconds.
     drag it to Applications, and open it. It's the "body" that carries your agent into the call — signed,
     notarized, and open-source.
   </Step>
-  <Step title="Let the wizard set you up">
-    A quick first-run wizard checks for **Claude Code** and **installs it for you if it's missing**, wires up
-    the `vibeconferencing` MCP, and lets you **name your bot**. Allow Mic + Camera (and Automation, so it can
-    auto-find your open Meet).
+  <Step title="Connect the app">
+    The app checks for Claude Code and connects the `vibeconferencing` MCP when it is available. If Claude
+    Code is missing, install it from the official link above and reopen Vibeconferencing. Allow Mic + Camera
+    (and Automation, so it can auto-find your open Meet).
   </Step>
   <Step title="Open a Google Meet">
     In Chrome, Brave, or Safari — a new meeting or a calendar one, whatever you're in.
@@ -33,8 +33,8 @@ description: "From download to your agent in a Google Meet — about 60 seconds.
 
 ## Bringing a specific agent
 
-Run `/join-call` **from the project you want in the call** — the bot takes its name and voice from that
-session (see [Naming & identity](/identity)). To force a named profile:
+The current beta joins through a **running app profile**. With one profile, `/join-call` routes to it.
+To select a named profile:
 
 ```bash
 /join-call <meet-link> SAL

@@ -1,42 +1,40 @@
 ---
 title: "Naming & identity"
-description: "Your bot joins as itself — its name, voice, and emoji come from the session you invite it from."
+description: "How the current app profile relates to the durable identity underneath it."
 ---
 
-The best part: when you say `/join-call` from a project, the bot **is that project**. Its name, voice, and
-personality come from the session — not from a generic default. Invite from your `solienne` folder and
-Solienne joins; invite from `denza` and Denza joins.
+In the current beta, `/join-call` drives a **running app profile**. That profile controls the name, voice,
+and emoji shown in this call. It is presentation, not proof of who the agent is.
 
 ## The principle
 
 > **Standardize the socket, not the soul.** The app owns the socket — one obvious place to plug in a voice
 > and a look. Your agent brings the soul.
 
-There's no grand directory to learn. The **folder you invite from is the agent's home**, and the app can
-just be told how to change its voice.
+The project folder supplies work context. It must not silently mint a new durable identity when it moves or
+gets renamed. Durable identity, consent, and receipts belong to the `/vibe` control plane.
 
 ## Where the name comes from
 
 <Steps>
-  <Step title="No name → the session">
-    `/join-call` with no name reads your session's folder and its `CLAUDE.md` and names the bot itself
-    (you can change it). A folder like `coltrane/` joins as **Coltrane**.
+  <Step title="One running profile">
+    `/join-call` with no name routes to the one running app profile.
   </Step>
   <Step title="A name → that bot">
     `/join-call <link> Clark` forces the **Clark** profile regardless of where you are.
   </Step>
-  <Step title="First run → pick one">
-    New setups prompt you to name your bot (a friendly default, so you don't end up with a million Jimmys).
+  <Step title="Set the presentation in the app">
+    Choose the profile name, voice, and emoji in the app. A simpler first-run naming flow is planned, not
+    part of the current public beta.
   </Step>
 </Steps>
 
 ## Voice & emoji
 
-Voices plus emoji are the whole presentation — a face that makes people smile. Set your bot's **voice** and
-**emoji set** in the app's profile; changes just apply. (Avatars are deprioritized for now — voice + emoji is
-the way.)
+Voices plus emoji are the whole presentation — a face that makes people smile. Set the profile's **voice**
+and **emoji** in the app. To change presentation mid-call today, leave and rejoin with the updated profile.
 
 <Note>
-  Identity is more than a display name. The durable layer — one agent, consented admission, and a signed
-  receipt for every call — is what makes this safe for a real team. See [The network](/network).
+  Identity is more than a display name. The durable layer — one agent, consented admission, and verifiable
+  receipts — is staged work, not a claim made by the current app profile. See [The network](/network).
 </Note>

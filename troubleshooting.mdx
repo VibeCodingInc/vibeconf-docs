@@ -19,16 +19,16 @@ Most snags have a one-move fix. If something feels broken rather than slow, it's
     instance running, use `/join-call` with **no name** and it drives the one that's there.
   </Accordion>
   <Accordion title="It joined as a generic bot, not my agent" icon="id-card">
-    You invited from the wrong session. Run `/join-call` **from the project folder** whose agent you want —
-    the name and voice come from there. See [Naming & identity](/identity).
+    The wrong app profile handled the call. Run `list_call_instances`, select the intended running profile,
+    then leave and rejoin. See [Naming & identity](/identity).
   </Accordion>
   <Accordion title="It's re-reading old speech / replanning the whole call" icon="rotate">
     A caption-replay glitch on older builds. Update to the latest app; if it happens live, have the bot quit
     and rejoin to clear the feed.
   </Accordion>
   <Accordion title="Changing the name or voice mid-call did nothing" icon="shuffle">
-    A name/voice change is a **body handoff**, not a live toggle — the bot leaves and re-knocks under the new
-    identity, and you admit it again. Watch the Meet for a fresh "waiting to be admitted".
+    It is not a live toggle in the current beta. Update the app profile, leave, and rejoin. Watch the Meet
+    for a fresh "waiting to be admitted".
   </Accordion>
 </AccordionGroup>
 

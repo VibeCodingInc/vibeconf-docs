@@ -1,31 +1,31 @@
 ---
-title: "End with a receipt"
-description: "Every call leaves a shareable one-page — the outcome, the recommendation, what got built — that carries the next person back into their own call."
+title: "Share the outcome"
+description: "A prototype share card for the outcome, recommendation, and work produced in a call."
 ---
 
-A transcript is a wall of text nobody reads. A **receipt** is the one thing worth keeping from a call:
-what you decided, what the agent built, and a link anyone can open. Your agent drops it in chat when the
-call wraps — paste it in Slack, and it does two jobs at once.
+A transcript is a wall of text nobody reads. This prototype **share card** keeps what you decided, what the
+agent built, and a link anyone can open. The renderer and link builder are live; automatic posting from the
+desktop app is not wired yet.
 
 <CardGroup cols={2}>
-  <Card title="It proves the work" icon="receipt">
+  <Card title="It shows the work" icon="receipt">
     The title, who was there, the whiteboard outcome, the recommendation, and a checklist of what the agent
     actually did — one page, no login, shareable anywhere.
   </Card>
   <Card title="It spreads itself" icon="share-nodes">
-    Every receipt carries a "bring your agent into your next call" link back to <a href="https://vibeconf.app">vibeconf.app</a>.
+    Every share card carries a "bring your agent into your next call" link back to <a href="https://vibeconf.app">vibeconf.app</a>.
     The proof is the invitation.
   </Card>
 </CardGroup>
 
 ## What it looks like
 
-See a live example: [**an example receipt →**](https://vibeconf.app/receipt/). It renders entirely from the
+See a live example: [**an example share card →**](https://vibeconf.app/receipt/). It renders entirely from the
 link — there's no server storing your call.
 
 ## For your coding agent — generate one
 
-The receipt is a small JSON object (`vibe-receipt/0`) encoded into a URL. At the end of a call, assemble it
+The share card is a small JSON object (`vibe-receipt/0`) encoded into a URL. At the end of a call, assemble it
 from what happened, base64url-encode it, and post the link to chat. No API, no key — the data rides in the URL.
 
 <Steps>
@@ -59,7 +59,9 @@ from what happened, base64url-encode it, and post the link to chat. No API, no k
 
 <Note>
   The whiteboard field takes Markdown — headings and `- bullets` render, `**bold**` emphasizes. Keep it to the
-  decisions and the outcome, not the transcript.
+  decisions and the outcome, not the transcript. Anyone with the link can read and alter its contents. Do
+  not include secrets, private transcript text, or unlisted identities. This is not a cryptographically
+  verified `/vibe` receipt.
 </Note>
 
 ## The fields
