@@ -4,12 +4,12 @@
   "name": "Vibeconferencing",
   "description": "Your Claude Code, in your Google Meet.",
   "colors": {
-    "primary": "#3652B0",
-    "light": "#8AABFF",
-    "dark": "#6B8FFF"
+    "primary": "#0E9E93",
+    "light": "#7FDED4",
+    "dark": "#0A736B"
   },
   "appearance": {
-    "default": "dark"
+    "default": "light"
   },
   "navigation": {
     "groups": [
@@ -53,5 +53,21 @@
       "website": "https://vibeconf.app"
     }
   },
-  "favicon": "/favicon.svg"
+  "favicon": "/favicon.svg",
+  "fonts": {
+    "heading": {
+      "family": "Syne",
+      "weight": 800
+    },
+    "body": {
+      "family": "DM Sans",
+      "weight": 400
+    }
+  },
+  "background": {
+    "color": {
+      "light": "#F5ECD6",
+      "dark": "#0F1613"
+    }
+  }
 }
