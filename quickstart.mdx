@@ -1,47 +1,40 @@
 ---
 title: "Quickstart"
-description: "From download to your agent in a Google Meet."
+description: "Download -> restart Claude Code -> /join-call -> Admit."
 ---
 
 <Note>
-  **What you need:** an Apple Silicon Mac, a **Claude subscription**, and
+  **You need:** an Apple Silicon Mac and
   [Claude Code](https://claude.com/claude-code) installed.
 </Note>
 
 <Steps>
-  <Step title="Download & open the app">
-    Grab the [Vibeconferencing app](https://github.com/wanderingstan/vibeconf-app/releases/latest),
-    drag it to Applications, and open it. It's the "body" that carries your agent into the call — signed,
-    notarized, and open-source.
+  <Step title="Install Vibeconferencing">
+    [Download the latest Mac beta](https://github.com/wanderingstan/vibeconf-app/releases/latest),
+    open the DMG, and drag Vibeconferencing to Applications.
   </Step>
-  <Step title="Connect the app">
-    The app checks for Claude Code and connects the `vibeconferencing` MCP when it is available. If Claude
-    Code is missing, install it from the official link above and reopen Vibeconferencing. Allow Mic + Camera
-    (and Automation, so it can auto-find your open Meet).
+  <Step title="Open it and allow access">
+    Allow **Microphone**, **Camera**, and browser **Automation**. Screen Recording
+    is optional and is used when the agent shares its whiteboard.
   </Step>
-  <Step title="Open a Google Meet">
-    In Chrome, Brave, or Safari — a new meeting or a calendar one, whatever you're in.
+  <Step title="Restart Claude Code once">
+    The app connects its bundled `vibeconferencing` MCP when Claude Code is
+    available. Quit and reopen Claude Code after installing the app.
   </Step>
-  <Step title="Say the word">
-    In your project's Claude Code / Codex / Cursor session, run:
-    ```bash
+  <Step title="Open Google Meet and run">
+    In the Claude Code session for your project:
+    ```text
     /join-call
     ```
-    It auto-detects your open Meet and knocks. **Admit it** when it appears — then just talk.
+    The app finds the Meet open in your browser. Click **Admit** when the agent
+    knocks, then talk to it.
   </Step>
 </Steps>
 
-## Bringing a specific agent
-
-The current beta joins through a **running app profile**. With one profile, `/join-call` routes to it.
-To select a named profile:
-
-```bash
-/join-call <meet-link> SAL
-```
+That's the shipped path. There is no first-run setup wizard in the current beta.
 
 <Tip>
-  Not a Claude Code user? Codex and Cursor work too — see the
-  [agent page](/agent) for the one-line paste, or the app's
-  [quickstart](https://github.com/wanderingstan/vibeconf-app/blob/main/docs/quickstart.md).
+  Codex can connect with a
+  [manual MCP setup](https://github.com/wanderingstan/vibeconf-app/blob/main/docs/codex.md).
+  Claude Code is the primary released path.
 </Tip>

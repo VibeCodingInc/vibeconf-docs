@@ -2,9 +2,9 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
   "name": "Vibeconferencing",
-  "description": "Bring your coding agent into a Google Meet — its own voice, a face that makes people smile, and the work on a shared whiteboard.",
+  "description": "Your Claude Code, in your Google Meet.",
   "colors": {
-    "primary": "#6B8FFF",
+    "primary": "#3652B0",
     "light": "#8AABFF",
     "dark": "#6B8FFF"
   },
@@ -14,26 +14,18 @@
   "navigation": {
     "groups": [
       {
-        "group": "Get started",
+        "group": "Start here",
         "pages": [
           "index",
           "quickstart",
-          "agent"
-        ]
-      },
-      {
-        "group": "In a call",
-        "pages": [
-          "in-a-call",
-          "receipt",
-          "identity",
+          "agent",
           "troubleshooting"
         ]
       },
       {
-        "group": "The network",
+        "group": "In the call",
         "pages": [
-          "network"
+          "in-a-call"
         ]
       }
     ]
@@ -41,10 +33,20 @@
   "navbar": {
     "primary": {
       "type": "button",
-      "label": "Download the app",
+      "label": "Download Mac beta",
       "href": "https://github.com/wanderingstan/vibeconf-app/releases/latest"
     }
   },
+  "redirects": [
+    {
+      "source": "/identity",
+      "destination": "/quickstart"
+    },
+    {
+      "source": "/network",
+      "destination": "/"
+    }
+  ],
   "footer": {
     "socials": {
       "github": "https://github.com/wanderingstan/vibeconf-app",

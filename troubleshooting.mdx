@@ -1,39 +1,28 @@
 ---
 title: "Troubleshooting"
-description: "The real gotchas, and the one-move fix for each."
+description: "Four common problems and the shortest fix."
 ---
 
-Most snags have a one-move fix. If something feels broken rather than slow, it's almost always one of these.
-
 <AccordionGroup>
-  <Accordion title="/join-call says 'no tools' or isn't there" icon="plug">
-    The `vibeconferencing` MCP dropped — it does that whenever the desktop app restarts. Run **`/mcp`**,
-    reconnect `vibeconferencing`, and try again.
+  <Accordion title="/join-call is missing" icon="plug">
+    Make sure Vibeconferencing is open. Restart Claude Code once after installing
+    the app. If the command is still missing, run `/mcp` and reconnect
+    `vibeconferencing`.
   </Accordion>
-  <Accordion title="The bot is stuck in the waiting room" icon="hourglass">
-    A human has to click **Admit** — cross-org Meets always require it. If the knock went stale, have the
-    session **re-knock** (leave and rejoin) so a fresh admit prompt appears.
+  <Accordion title="The app cannot find the Meet" icon="video">
+    Open the Meet in your browser and run `/join-call` again. You can also pass
+    the full Meet URL to `join_call`.
   </Accordion>
-  <Accordion title="'Which profile?' / it can't route the name" icon="user-question">
-    The name must match a **running** app profile. Run `list_call_instances` to see what's up; with a single
-    instance running, use `/join-call` with **no name** and it drives the one that's there.
+  <Accordion title="The agent is waiting" icon="hourglass">
+    Click **Admit** in Google Meet. If the request expired, leave and run
+    `/join-call` again.
   </Accordion>
-  <Accordion title="It joined as a generic bot, not my agent" icon="id-card">
-    The wrong app profile handled the call. Run `list_call_instances`, select the intended running profile,
-    then leave and rejoin. See [Naming & identity](/identity).
-  </Accordion>
-  <Accordion title="It's re-reading old speech / replanning the whole call" icon="rotate">
-    A caption-replay glitch on older builds. Update to the latest app; if it happens live, have the bot quit
-    and rejoin to clear the feed.
-  </Accordion>
-  <Accordion title="Changing the name or voice mid-call did nothing" icon="shuffle">
-    It is not a live toggle in the current beta. Update the app profile, leave, and rejoin. Watch the Meet
-    for a fresh "waiting to be admitted".
+  <Accordion title="The agent cannot hear or speak" icon="microphone">
+    Reopen App Settings and confirm Microphone and Camera permission. Leave the
+    call, then run `/join-call` again.
   </Accordion>
 </AccordionGroup>
 
-## The one-liner
-
 <Note>
-  App open + Meet open → `/join-call` → **Admit** → talk. If the tools are missing, `/mcp` reconnect first.
+  App open + Meet open -> `/join-call` -> **Admit**.
 </Note>

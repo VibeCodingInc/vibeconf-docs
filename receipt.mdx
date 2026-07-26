@@ -1,82 +1,13 @@
 ---
-title: "Share the outcome"
-description: "A prototype share card for the outcome, recommendation, and work produced in a call."
+title: "Share-card prototype"
+description: "An unsigned, manually created example. It is not part of the automatic call flow."
 ---
 
-A transcript is a wall of text nobody reads. This prototype **share card** keeps what you decided, what the
-agent built, and a link anyone can open. The renderer and link builder are live; automatic posting from the
-desktop app is not wired yet.
+The [example share card](https://vibeconf.app/receipt/) is a browser renderer
+for a small JSON object encoded in the URL fragment.
 
-<CardGroup cols={2}>
-  <Card title="It shows the work" icon="receipt">
-    The title, who was there, the whiteboard outcome, the recommendation, and a checklist of what the agent
-    actually did — one page, no login, shareable anywhere.
-  </Card>
-  <Card title="It spreads itself" icon="share-nodes">
-    Every share card carries a "bring your agent into your next call" link back to <a href="https://vibeconf.app">vibeconf.app</a>.
-    The proof is the invitation.
-  </Card>
-</CardGroup>
-
-## What it looks like
-
-See a live example: [**an example share card →**](https://vibeconf.app/receipt/). It renders entirely from the
-link — there's no server storing your call.
-
-## For your coding agent — generate one
-
-The share card is a small JSON object (`vibe-receipt/0`) encoded into a URL. At the end of a call, assemble it
-from what happened, base64url-encode it, and post the link to chat. No API, no key — the data rides in the URL.
-
-<Steps>
-  <Step title="Assemble the object">
-    Only `title` is required; include whatever you have.
-    ```json
-    {
-      "schema": "vibe-receipt/0",
-      "title": "Auth flow — Clerk vs Supabase",
-      "agent": { "name": "Jimmy", "emoji": "🛠️" },
-      "humans": ["Lenny"],
-      "artifacts": { "whiteboard": { "content": "## Clerk vs Supabase\n- **Speed** — Clerk\n- **Lock-in** — Supabase lower" } },
-      "recommendation": "Clerk to ship this week; revisit at 10k MAU.",
-      "did": ["Compared both on the board", "Drafted the Clerk integration PR"]
-    }
-    ```
-  </Step>
-  <Step title="Encode it into a link">
-    base64url-encode the JSON and append it as the URL fragment.
-    ```js
-    const link = "https://vibeconf.app/receipt/#" +
-      Buffer.from(JSON.stringify(receipt)).toString("base64url");
-    ```
-    Any language works — it's just base64url of the JSON, after the `#`.
-  </Step>
-  <Step title="Post it to the call">
-    Drop the link in chat before you leave: *"Receipt for this call → &lt;link&gt;"*. Because the data is in
-    the fragment, it's never sent to a server — the page decodes it in the browser.
-  </Step>
-</Steps>
-
-<Note>
-  The whiteboard field takes Markdown — headings and `- bullets` render, `**bold**` emphasizes. Keep it to the
-  decisions and the outcome, not the transcript. Anyone with the link can read and alter its contents. Do
-  not include secrets, private transcript text, or unlisted identities. This is not a cryptographically
-  verified `/vibe` receipt.
-</Note>
-
-## The fields
-
-| Field | What it is |
-|---|---|
-| `title` | What the call was about (required) |
-| `agent` | `{ name, emoji }` — your agent's presentation |
-| `humans` | Names in the room |
-| `artifacts.whiteboard.content` | The outcome, as Markdown |
-| `recommendation` | The one line worth remembering |
-| `did` | What the agent actually did, as a list |
-| `participants` | `[{ name, claimUrl }]` — optional "take the room home" links |
-
-<Tip>
-  Identity vs. presentation: `agent.name` and `emoji` are how it *looks* this call — free to change. Who the
-  agent *is* lives in its durable identity, not the receipt. See [Naming & identity](/identity).
-</Tip>
+<Warning>
+  This prototype is not automatically saved or posted by the Mac beta. It is not
+  signed or verified. Anyone with the link can read and alter its contents. Do not
+  include secrets, private transcript text, or private participant names.
+</Warning>

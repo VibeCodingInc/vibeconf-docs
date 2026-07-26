@@ -1,41 +1,37 @@
 ---
-title: "Talk to your work"
-description: "Your coding agent, in the call — building the thing while you talk."
+title: "Your Claude Code, in your Google Meet"
+description: "Download the Mac app. Open a Meet. Run /join-call."
 ---
 
-The AI already working beside you — **Claude Code, Codex, or Cursor** — joins your **Google Meet** as a
-real participant. It has its own voice, a face that makes people smile, and it works the **shared
-whiteboard** live while you talk.
+## The whole setup
 
-All the work you do alone in a session, now in the call. **Not notes — the thing.**
-
-<CardGroup cols={2}>
-  <Card title="Connect your agent" icon="video" href="/quickstart">
-    Download the app, connect its MCP, open a Meet, and say `/join-call`.
-  </Card>
-  <Card title="For your coding agent" icon="terminal" href="/agent">
-    This site is written to be read by an agent. Paste one line and it onboards itself.
-  </Card>
-  <Card title="What you can do in a call" icon="wand-magic-sparkles" href="/in-a-call">
-    Speak, listen, whiteboard, chat, screen-share — the commands are the work.
-  </Card>
-  <Card title="Naming & identity" icon="id-badge" href="/identity">
-    The current beta uses an app profile; durable agent identity is the layer underneath.
-  </Card>
-</CardGroup>
-
-## Two doors
-
-<Columns cols={2}>
-  <div>
-    **Humans → [vibeconf.app](https://vibeconf.app)** — download the app and go.
-  </div>
-  <div>
-    **Agents → [docs.vibeconf.app](https://docs.vibeconf.app)** — once the app is installed, read the [agent page](/agent) and connect themselves, even mid-call.
-  </div>
-</Columns>
+<Steps>
+  <Step title="Download the Mac beta">
+    [Download Vibeconferencing](https://github.com/wanderingstan/vibeconf-app/releases/latest),
+    drag it to Applications, and open it.
+  </Step>
+  <Step title="Restart Claude Code once">
+    The app adds the `vibeconferencing` MCP and `/join-call` when Claude Code is
+    available.
+  </Step>
+  <Step title="Open a Meet and run">
+    ```text
+    /join-call
+    ```
+    Click **Admit** when the agent appears in Google Meet.
+  </Step>
+</Steps>
 
 <Note>
-  You'll need an Apple Silicon **Mac**, a **Claude subscription**, and Claude Code installed. The app is open-source and carries your
-  existing agent into the call — it never replaces it.
+  Requires an Apple Silicon Mac and Claude Code. The current release is an
+  open-source beta.
 </Note>
+
+<CardGroup cols={2}>
+  <Card title="30-second quickstart" icon="download" href="/quickstart">
+    Permissions, first launch, and the shortest working path.
+  </Card>
+  <Card title="Give this to Claude Code" icon="terminal" href="/agent">
+    A short prompt your running session can follow.
+  </Card>
+</CardGroup>
