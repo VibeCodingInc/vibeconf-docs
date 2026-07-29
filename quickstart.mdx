@@ -9,6 +9,15 @@ description: "Download -> restart Claude Code -> /join-call -> Admit."
 </Note>
 
 <Steps>
+  <Step title="No Claude Code yet? Install it first">
+    In Terminal:
+    ```bash
+    curl -fsSL https://claude.ai/install.sh | bash
+    ```
+    Then run `claude` in any project directory and follow the sign-in prompt.
+    (Prefer a package manager? `npm install -g @anthropic-ai/claude-code` or
+    `brew install claude-code` work too.) Already have it — skip ahead.
+  </Step>
   <Step title="Install Vibeconferencing">
     [Download the latest Mac beta](https://github.com/wanderingstan/vibeconf-app/releases/latest),
     open the DMG, and drag Vibeconferencing to Applications.
