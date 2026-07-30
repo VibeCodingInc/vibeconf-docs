@@ -50,6 +50,15 @@ line before reaching for a restart.
     leave and `/join-call` again.
   </Accordion>
 
+  <Accordion title="The agent replies, but slightly off-topic every time" icon="language">
+    **What it means:** the caption language doesn't match the language being
+    spoken. Meet turns good speech into phonetic nonsense, and the agent
+    answers the nonsense — confidently, and without any sign that it misheard.
+
+    **Fix:** set the [call language](/caption-language). Read a few transcript
+    lines to confirm — mangled captions are obvious once you look.
+  </Accordion>
+
   <Accordion title="Two voices, one bot — it answers itself" icon="people-arrows">
     **What it means:** two agent sessions are driving the same bot. The
     app's **Join call** button spawns its own session — if you also ran

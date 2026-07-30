@@ -1,0 +1,72 @@
+---
+title: "Call language"
+description: "The bot hears through Meet's captions — set the language or it answers nonsense."
+---
+
+Your agent doesn't transcribe audio. It **reads Google Meet's live captions**, which means
+Meet's caption language decides what the agent hears.
+
+Set it wrong and the failure is quiet: Meet turns perfectly good speech into phonetic
+gibberish, and the agent answers the gibberish. It doesn't go silent — it becomes confidently
+wrong, and nobody notices until someone reads the transcript.
+
+## Set it before you talk
+
+<Steps>
+  <Step title="On first run">
+    The setup wizard asks for your call language in the voice step. Pick the language your
+    meetings actually happen in.
+  </Step>
+  <Step title="Per bot, any time">
+    Each bot profile carries its own call language in App Settings, next to Voice. It's
+    applied when the bot joins.
+  </Step>
+  <Step title="Mid-call, by asking">
+    ```text
+    Switch the call language to German.
+    ```
+    The agent drives Meet's own Settings dialog to change it, and tells you the language tag
+    Meet actually settled on.
+  </Step>
+</Steps>
+
+## What comes back
+
+The agent reports the **BCP-47 tag** Meet applied — `de-DE`, `es-MX`, `cmn-Hans-CN` — not just
+"ok". Worth reading, because a bare language can resolve to a regional variant you didn't
+expect:
+
+| You ask for | Meet gives you |
+|---|---|
+| `es` | `es-MX` — the first regional variant Meet lists |
+| `es-ES` | `es-ES` |
+| `en` | `en-US` |
+| `en-GB` | `en-GB` |
+| `cmn` | `cmn-Hans-CN` |
+
+If the exact regional variant matters, ask for it explicitly.
+
+## Multilingual meetings
+
+Meet captions one language at a time, and every participant sets their own. If your call
+switches languages mid-conversation, captions for the other language arrive mangled — so
+either set the language to whichever one carries the substance, or switch it when the
+conversation switches.
+
+<Tip>
+  A bot answering slightly-off-topic replies to clear speech is the signature of a caption
+  language mismatch. Check the language before you debug anything else — and read a few
+  lines of the transcript, where the garbling is obvious.
+</Tip>
+
+<Note>
+  Google Meet only. Slack huddles have no caption region, so the agent reports call language
+  as unsupported rather than pretending the change worked.
+</Note>
+
+## Interesting side effect
+
+The model reads *through* a certain amount of garbling. On one call two participants spoke
+German with captions set to English; the captions arrived as nonsense English and the agent
+worked out what was happening and replied in German. Fun, and not something to rely on —
+set the language.
