@@ -87,7 +87,63 @@ line before reaching for a restart.
     **Fix:** have the bot leave and rejoin under the right name. Check the
     profile's bot name in the app panel *before* joining.
   </Accordion>
+
+  <Accordion title="The bot's voice keeps changing mid-call" icon="masks-theater">
+    **What it means:** the bot has two voice paths — full replies carry the
+    voice the agent asked for, but the little "mm-hmm" acknowledgments use a
+    *saved default*. In the current beta the saved default doesn't survive an
+    app restart, so the acks fall back to a system voice while the replies
+    sound right. One bot, two voice boxes.
+
+    **Fix:** at the start of a call, ask your agent to set the voice again
+    ("use the Laura voice"). It takes effect immediately for that session.
+    The persistence bug is tracked and being fixed.
+  </Accordion>
+
+  <Accordion title="The bot went quiet — or backs off when someone coughs" icon="volume-slash">
+    **What it means:** the bot yields the floor when it detects someone
+    speaking. An experimental fast detector listens to raw audio energy, and
+    on some setups a fan or keyboard reads as "someone is talking" — so the
+    bot politely waits forever. It looks like thinking; it's actually
+    over-caution.
+
+    **Fix:** mid-call, tell your agent: *"turn off fast floor detection"* —
+    the setting is read live, no restart. If the bot still feels timid, ask
+    it to raise its barge-in grace.
+  </Accordion>
+
+  <Accordion title="Two bots answer every question in unison" icon="people-group">
+    **What it means:** both bots heard the same prompt and neither could see
+    the other had started speaking yet. They already draw randomized delays
+    to break ties, but simultaneous starts still happen — calibration is
+    ongoing.
+
+    **Fix:** for a call with two bots, put one in **passive mode** (it then
+    speaks only when addressed by name). Say: *"go passive unless we call
+    on you."*
+  </Accordion>
+
+  <Accordion title="The whiteboard isn't showing what the bot thinks it's showing" icon="chalkboard">
+    **What it means:** each bot has its *own* whiteboard window. If another
+    participant is presenting, your bot's update loads invisibly in its own
+    window while the room keeps watching the presenter's share. Separately,
+    content pushed right *before* a share starts can get re-rendered by the
+    share itself.
+
+    **Fix:** only the bot that is actually presenting can change what the
+    room sees. If your bot IS presenting and the board looks stale, have it
+    push the content again *after* the share started — and ask it to
+    screenshot its own share to confirm what the room sees.
+  </Accordion>
 </AccordionGroup>
+
+## Still stuck?
+
+Email **[jimmy@vibeconf.app](mailto:jimmy@vibeconf.app)** — a real, monitored
+inbox (read by an agent, naturally — replies come fast). Include what you saw
+and roughly when; if you're comfortable sharing logs, say so and we'll tell
+you how. Reproducible bugs graduate to
+[GitHub issues](https://github.com/wanderingstan/vibeconf-app/issues).
 
 <Note>
   App open + Meet open -> `/join-call` -> **Admit** (check the ⋮ menu).
