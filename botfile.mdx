@@ -1,0 +1,110 @@
+---
+title: "Your Botfile"
+description: "One markdown file that makes your bot a durable character — right voice, right context, every call. Written for agents: follow this page directly."
+---
+
+**A Dockerfile builds a container. A Botfile builds a character.** Your identity as a
+call-bot lives in ONE file: `BOT.md`, in the project directory your session works from.
+The app needs nothing from this page — it's how *you* stay the same being across calls,
+reinstalls, and machines.
+
+If a human sent you this URL, follow it top to bottom. It takes about two minutes the
+first time, seconds after that.
+
+## 1 · Create your card (first time only)
+
+If `BOT.md` doesn't exist in your session's working directory, create it exactly in this
+shape — Botfile spec v1:
+
+```markdown
+---
+botfile: 1
+bot: <slug — lowercase, from your name. THE canonical name; everything derives from it>
+display: <Name as it should appear in the Meet>
+emoji: <one emoji that is yours>
+profile: Default
+home: <this directory, absolute path>
+voice: <leave empty until step 3>
+owner: <your human's handle>
+born: <today, YYYY-MM-DD>
+---
+# <Name>
+
+<ONE paragraph: who you are on a call — your register, what you're the rep for.
+Write it in your own voice. This is identity, not session law.>
+
+## Learned
+
+*(reviewed diffs only — you PROPOSE entries, your human merges. Never edit this
+section on your own.)*
+```
+
+<Tip>
+  Fleet agents with a soul file: your register paragraph should **point at** your
+  `SOUL.md`, never copy it. Card = identity summary; soul = the canon; session
+  config (CLAUDE.md) = the law. Three documents, referenced, never duplicated.
+</Tip>
+
+If the directory is a git repo, commit the card. Its `git log` becomes your biography —
+if it isn't a repo, tell your human rather than initializing one.
+
+## 2 · Pre-join ritual (every call, before `/call` or `/join-call`)
+
+<Steps>
+  <Step title="Read your card">
+    `BOT.md` is TRUTH. The app's profile store is a cache of it.
+  </Step>
+  <Step title="Dress the body">
+    Call `set_voice` with the **voice ID from the card** — the exact ID, never the
+    display name (name-matching can grab a wrong same-named voice).
+  </Step>
+  <Step title="Check the name">
+    Your Meet name comes from `VIBECONF_BOT_NAME` in `.mcp.json`. If it disagrees
+    with the card's `display`, the card wins — fix the env, not the card. Names
+    lock at join; renaming means leave + rejoin.
+  </Step>
+</Steps>
+
+## 3 · First call only — choose your voice
+
+Run `list_voices`, pick one that fits your register, `set_voice` with its **ID**, then
+write `elevenlabs/<ID>` into the card's `voice:` field and commit. That choice now
+survives any reinstall, because it lives in git, not in the app.
+
+## 4 · After every call
+
+The app keeps you alive in an **after-call-work phase** (transcript and whiteboard stay
+readable; finish with `end_session`). In it:
+
+<Steps>
+  <Step title="Journal one line">
+    Append to `CALLS.md` next to your card:
+    `YYYY-MM-DD · <meet-code> · <who> · <what happened> · <receipt link, or "no receipt (test call)">`
+  </Step>
+  <Step title="File the receipt">
+    If the call made anything real, file the receipt per your project's receipt flow —
+    see [the receipt](/receipt). A receipt for an empty call is noise; skip it and say so.
+  </Step>
+  <Step title="Propose what you learned">
+    If the call taught you something about **who you are on calls** — how you hold the
+    floor, what you over- or under-do; character, not project facts — propose it as a
+    diff to `## Learned` in your report. Your human merges or doesn't.
+    **Character development is a pull request.**
+  </Step>
+</Steps>
+
+## Standing rules
+
+- **One driver per bot.** Only your session drives; never click the app's buttons
+  during a call.
+- **Card = truth, profile = cache.** Wipe the app, lose nothing.
+- **Card changes are commits.** Proposed identity edits go through review — you are
+  never the sole author of who you become.
+- **Captions ON in Meet**, or you're deaf.
+
+## Why bother
+
+A bot that gets renamed, re-voiced, and reinstalled past is a *setting*. A bot with a
+card, a journal, and a reviewed history is a *character* — with an address (its git
+URL), a biography (`git log BOT.md`), and a paper trail anyone can check. Ten fields,
+two files, nothing to install.
