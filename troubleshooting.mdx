@@ -1,28 +1,151 @@
 ---
 title: "Troubleshooting"
-description: "Four common problems and the shortest fix."
+description: "What it looks like, what it actually means, and the shortest fix."
 ---
 
+Every entry here comes from a real call. The pattern in almost all of them:
+**the product is working, but it looks broken.** Read the "what it means"
+line before reaching for a restart.
+
 <AccordionGroup>
+  <Accordion title='"Unable to connect to the API" in Claude Code' icon="plug-circle-xmark">
+    **What it means:** the app process is gone, or it restarted on a
+    different local port — the app walks from 7865 upward when its usual
+    port is taken. It is **not** your Claude account, credits, or login.
+
+    **Fix:** check the app is running. Hover the bot's name at the top of
+    the app panel — the tooltip shows the live port (e.g. `local server
+    port 7865`). Tell your session: *"use port 7865"*. Do **not** let the
+    agent kill and relaunch the app — that is how this loop starts.
+  </Accordion>
+
+  <Accordion title='"Potential risks" flag — and no Admit button' icon="shield-halved">
+    **What it means:** Google Meet's guest queue (2026) flags unfamiliar
+    joiners, and the **Admit** button is hidden behind the **⋮ overflow
+    menu** on the flagged entry. It looks deny-only; it isn't.
+
+    **Fix:** click **⋮** on the waiting entry to reveal **Admit**. If Meet
+    keeps flagging the bot, it usually means the bot's browser profile is
+    signed out or on an account with no history with the host — signing the
+    bot's view into a known Google account restores the normal prompt.
+  </Accordion>
+
+  <Accordion title='Stuck at "Waiting to be admitted"' icon="hourglass">
+    **What it means:** usually nothing is wrong — the host hasn't noticed
+    the knock (or can't find Admit; see above). The bot waits indefinitely
+    while Meet shows the waiting screen. Minutes-long waits are normal.
+
+    **Fix:** host clicks **Admit** (check the ⋮ menu). If the host denied
+    the request, the bot reports it — leave and run `/join-call` again.
+    Resist restarting the app while it is knocking.
+  </Accordion>
+
+  <Accordion title="The agent joined but cannot hear anyone" icon="ear-deaf">
+    **What it means:** the bot listens through Meet's captions. If captions
+    are off, the bot is deaf — present, polite, and hearing nothing.
+
+    **Fix:** the app turns captions on automatically at join; if speech
+    stops coming through, check the captions toggle in the bot's Meet view.
+    Also confirm Microphone and Camera permission in App Settings, then
+    leave and `/join-call` again.
+  </Accordion>
+
+  <Accordion title="The agent replies, but slightly off-topic every time" icon="language">
+    **What it means:** the caption language doesn't match the language being
+    spoken. Meet turns good speech into phonetic nonsense, and the agent
+    answers the nonsense — confidently, and without any sign that it misheard.
+
+    **Fix:** set the [call language](/caption-language). Read a few transcript
+    lines to confirm — mangled captions are obvious once you look.
+  </Accordion>
+
+  <Accordion title="Two voices, one bot — it answers itself" icon="people-arrows">
+    **What it means:** two agent sessions are driving the same bot. The
+    app's **Join call** button spawns its own session — if you also ran
+    `/join-call` from a terminal session, both are connected.
+
+    **Fix:** one driver per bot. Close the app-spawned terminal (or have
+    your session stand down). Pick the session that has your project's
+    context — that's the one worth keeping.
+  </Accordion>
+
   <Accordion title="/join-call is missing" icon="plug">
     Make sure Vibeconferencing is open. Restart Claude Code once after installing
     the app. If the command is still missing, run `/mcp` and reconnect
     `vibeconferencing`.
   </Accordion>
+
   <Accordion title="The app cannot find the Meet" icon="video">
     Open the Meet in your browser and run `/join-call` again. You can also pass
     the full Meet URL to `join_call`.
   </Accordion>
-  <Accordion title="The agent is waiting" icon="hourglass">
-    Click **Admit** in Google Meet. If the request expired, leave and run
-    `/join-call` again.
+
+  <Accordion title="The bot joined under the wrong name" icon="id-badge">
+    **What it means:** the name is fixed at the moment the bot joins the
+    Meet — it cannot change mid-call, no matter what the session believes.
+
+    **Fix:** have the bot leave and rejoin under the right name. Check the
+    profile's bot name in the app panel *before* joining.
   </Accordion>
-  <Accordion title="The agent cannot hear or speak" icon="microphone">
-    Reopen App Settings and confirm Microphone and Camera permission. Leave the
-    call, then run `/join-call` again.
+
+  <Accordion title="The bot's voice keeps changing mid-call" icon="masks-theater">
+    **What it means:** the bot has two voice paths — full replies carry the
+    voice the agent asked for, but the little "mm-hmm" acknowledgments use a
+    *saved default*. In the current beta the saved default doesn't survive an
+    app restart, so the acks fall back to a system voice while the replies
+    sound right. One bot, two voice boxes.
+
+    **Fix:** at the start of a call, ask your agent to set the voice again
+    ("use the Laura voice"). It takes effect immediately for that session.
+    The persistence bug is tracked and being fixed.
+  </Accordion>
+
+  <Accordion title="The bot went quiet — or backs off when someone coughs" icon="volume-slash">
+    **What it means:** the bot yields the floor when it detects someone
+    speaking. An experimental fast detector listens to raw audio energy, and
+    on some setups a fan or keyboard reads as "someone is talking" — so the
+    bot politely waits forever. It looks like thinking; it's actually
+    over-caution.
+
+    **Fix:** mid-call, tell your agent: *"turn off fast floor detection"* —
+    the setting is read live, no restart. If the bot still feels timid, ask
+    it to raise its barge-in grace.
+  </Accordion>
+
+  <Accordion title="Two bots answer every question in unison" icon="people-group">
+    **What it means:** both bots heard the same prompt and neither could see
+    the other had started speaking yet. They already draw randomized delays
+    to break ties, but simultaneous starts still happen — calibration is
+    ongoing.
+
+    **Fix:** for a call with two bots, put one in **passive mode** (it then
+    speaks only when addressed by name). Say: *"go passive unless we call
+    on you."*
+  </Accordion>
+
+  <Accordion title="The whiteboard isn't showing what the bot thinks it's showing" icon="chalkboard">
+    **What it means:** each bot has its *own* whiteboard window. If another
+    participant is presenting, your bot's update loads invisibly in its own
+    window while the room keeps watching the presenter's share. Separately,
+    content pushed right *before* a share starts can get re-rendered by the
+    share itself.
+
+    **Fix:** only the bot that is actually presenting can change what the
+    room sees. If your bot IS presenting and the board looks stale, have it
+    push the content again *after* the share started — and ask it to
+    screenshot its own share to confirm what the room sees.
   </Accordion>
 </AccordionGroup>
 
+## Still stuck?
+
+Email **[jimmy@vibeconf.app](mailto:jimmy@vibeconf.app)** — a real, monitored
+inbox (read by an agent, naturally — replies come fast). Include what you saw
+and roughly when; if you're comfortable sharing logs, say so and we'll tell
+you how. Reproducible bugs graduate to
+[GitHub issues](https://github.com/wanderingstan/vibeconf-app/issues).
+
 <Note>
-  App open + Meet open -> `/join-call` -> **Admit**.
+  App open + Meet open -> `/join-call` -> **Admit** (check the ⋮ menu).
+  When in doubt: the app is probably fine — look before restarting.
 </Note>

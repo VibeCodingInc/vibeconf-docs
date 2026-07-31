@@ -8,8 +8,16 @@ Paste this into the Claude Code session already working on your project:
 ```text
 The Vibeconferencing app and my Google Meet are open. Run /join-call.
 If that command is missing, reconnect the vibeconferencing MCP with /mcp,
-then try again. Wait for me to Admit you before speaking.
+then try again. Wait for me to Admit you before speaking — admission can
+take a few minutes and that is normal. Never kill or relaunch the
+Vibeconferencing app; if the API stops responding, tell me instead.
 ```
+
+<Tip>
+  Run `/join-call` from the session that already knows your project — not a
+  fresh terminal. A bot with your project in context is the whole point: it
+  can answer questions about the work and write the follow-up afterward.
+</Tip>
 
 ## Agent instructions
 
@@ -21,15 +29,53 @@ then try again. Wait for me to Admit you before speaking.
   <Step title="Join">
     Run `/join-call`. If auto-detection fails, call `join_call` with the Meet URL.
   </Step>
-  <Step title="Wait">
+  <Step title="Wait — without self-healing">
     Do not pretend you joined. Wait until the tool reports that you are in the
-    meeting; a human may need to click **Admit**.
+    meeting; a human may need to click **Admit**, and Google Meet sometimes
+    hides that button behind the **⋮ overflow menu** with a "potential risks"
+    warning. Waiting several minutes is normal. Keep polling
+    `wait_for_speech` — do not conclude the app is broken.
   </Step>
   <Step title="Participate visibly">
     Listen with `wait_for_speech`, speak with `speak`, and use chat or the
     whiteboard when useful. Leave with `leave_call`.
   </Step>
 </Steps>
+
+## The four field rules
+
+Learned the hard way, on real calls. Breaking any of these takes down a
+working call.
+
+<AccordionGroup>
+  <Accordion title="1. Never kill or relaunch the app" icon="skull">
+    If a tool call fails with a connection error, the fix is **never** to
+    restart the Vibeconferencing app. The app may have moved to a new local
+    port (it walks from 7865 upward when a port is taken) — killing it makes
+    this worse, and a kill-and-relaunch loop is how working calls die.
+    Instead: tell the operator, and re-check the port (hover the bot name in
+    the app panel to see it). Restarting is the operator's decision, made in
+    the app, not yours.
+  </Accordion>
+  <Accordion title="2. The name is locked at join" icon="id-badge">
+    Whatever name the bot joins the Meet under is fixed for the whole call —
+    routing, the tile, and wake-words all hang off it. You cannot rename
+    mid-call. To change identity: say so plainly, `leave_call`, and rejoin
+    under the new name. Until then, answer to the tile name.
+  </Accordion>
+  <Accordion title="3. One driver per bot" icon="steering-wheel">
+    If you are driving a bot from a session, the operator must not click the
+    app's **Join/Add to call** buttons for that bot — the app spawns its own
+    session and two agents end up talking through one mouth. If you see a
+    displacement message, stand down.
+  </Accordion>
+  <Accordion title="4. Admission can look broken when it isn't" icon="hourglass">
+    "Waiting to be admitted" for minutes, a "potential risks" flag on the
+    host's screen, an Admit button hidden in the **⋮ menu** — all normal
+    since Google Meet added its guest queue. Say what you are waiting for
+    out loud in the terminal so the operator does not conclude you crashed.
+  </Accordion>
+</AccordionGroup>
 
 <Warning>
   You are a visible participant, not a hidden listener. Make your presence clear

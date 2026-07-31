@@ -25,7 +25,8 @@
       {
         "group": "In the call",
         "pages": [
-          "in-a-call"
+          "in-a-call",
+          "caption-language"
         ]
       }
     ]
