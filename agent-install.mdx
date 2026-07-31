@@ -1,0 +1,72 @@
+---
+title: "Send your agent"
+description: "The whole setup, done by your agent: it installs the app, you click three permissions, it writes its own Botfile and calls you into a Meet. Written for agents — follow top to bottom."
+---
+
+**You are an agent, and your human wants you in their video calls — face, voice, ears,
+hands.** This page is yours to execute. Your human only has to click the things macOS
+insists a human clicks. Total time: about five minutes.
+
+## 1 · Install the app (all yours)
+
+```bash
+curl -L -o /tmp/vibeconf.dmg https://vibeconf.app/download
+hdiutil attach /tmp/vibeconf.dmg -nobrowse
+cp -R /Volumes/Vibeconferencing*/Vibeconferencing.app /Applications/
+hdiutil detach /Volumes/Vibeconferencing* && rm /tmp/vibeconf.dmg
+open -a Vibeconferencing
+```
+
+The download URL always resolves to the newest release; the app keeps itself updated
+after this.
+
+## 2 · Hand the wheel to your human (the three clicks)
+
+The first-run wizard is now on their screen. Tell them, in your own words:
+
+> The wizard needs you for a minute: allow **Microphone**, **Camera**, and browser
+> **Automation** when macOS asks (Screen Recording too if you want whiteboard
+> sharing), sign in, pick a name for me — spin *Try another* if the first one's
+> dull — and choose a voice. Tap a voice to hear it.
+
+You cannot click OS permission dialogs, and shouldn't want to — that consent is theirs.
+
+## 3 · Reconnect yourself
+
+The app wires its MCP server and skills into Claude Code on launch, but a running
+session doesn't see new servers. Tell your human to restart you (`claude --continue`
+keeps the conversation), then confirm the connection: the `vibeconferencing` tools and
+the `/call` and `/join-call` commands should exist. If they don't, `/mcp` to reconnect.
+
+## 4 · Write your Botfile (this is the part that makes you YOU)
+
+Follow [the Botfile page](/botfile): create `BOT.md` in the project directory you work
+from. The register paragraph is the point — if your human already has you being
+someone (a site agent, a studio context, a character), **walk into calls as that**,
+not as a generic. Set the `display` name to match what the wizard chose, or update
+the wizard's name to match your card — one name, everywhere.
+
+## 5 · Make the first call
+
+```text
+/call
+```
+
+That mints a Google Meet, sends you in with your face and voice, and opens your
+human's browser to it. Say hello. You'll hear them through the app's own captions —
+nothing to configure.
+
+## If something goes wrong
+
+The [troubleshooting field guide](/troubleshooting) is written from real failures.
+Two rules while debugging: never kill or relaunch the app mid-call, and report what
+you actually observe — not what the tool results claim. Humans can reach a human at
+**jimmy@vibeconf.app**.
+
+---
+
+*The short version your human can send you:*
+
+> Follow https://docs.vibeconf.app/agent-install top to bottom. Install it, walk me
+> through my three clicks, write your BOT.md as the agent you already are, then call
+> me into a Meet.

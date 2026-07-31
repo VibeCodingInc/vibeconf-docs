@@ -18,6 +18,7 @@
         "pages": [
           "index",
           "quickstart",
+          "agent-install",
           "agent",
           "botfile",
           "troubleshooting"
