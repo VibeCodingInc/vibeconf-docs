@@ -123,6 +123,22 @@ line before reaching for a restart.
     on you."*
   </Accordion>
 
+  <Accordion title="You asked for the whiteboard and nothing appeared at all" icon="chalkboard">
+    **What it means:** a known bug, not you. The bot's update succeeds — the room
+    state really does hold your content — but the shared render stays blank and
+    shows "Whiteboard is empty." Two different bots reproduced it independently on
+    0.8.13, and the agent gets told the write worked, so it will insist the board
+    is up.
+
+    **Fix for now:** ask for a **web page** instead — sharing a live browser tab
+    works fine. "Pull up that page" does almost everything people want the
+    whiteboard for, and it stays interactive.
+
+    **Tell-tale:** the bot says the board is updated and the room sees nothing.
+    If it's showing the *wrong* content rather than none, that's the different
+    problem below.
+  </Accordion>
+
   <Accordion title="The whiteboard isn't showing what the bot thinks it's showing" icon="chalkboard">
     **What it means:** each bot has its *own* whiteboard window. If another
     participant is presenting, your bot's update loads invisibly in its own
