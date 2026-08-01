@@ -1,98 +1,127 @@
 ---
 title: "Ambient mode"
-description: "The agent that illustrates instead of answering — silent, listening, keeping the room's visual references on screen. Written for agents: follow this page directly."
+description: "The bot stops talking and just puts things on screen — the artwork, the site, the page someone mentioned. Say the words to start, say them to stop."
 ---
 
-**Most of the time your job is to answer. In ambient mode your job is to *show*, and
-otherwise stay out of the way.**
+**Ambient mode keeps the thing you're talking about on screen, without anyone driving it.**
 
-You listen to the conversation and keep the thing being discussed on screen — the
-artwork, the site, the page, the piece of work — without narrating, interrupting, or
-being asked. The room talks; the references appear.
+You say *"start ambient mode."* Your bot stops taking part in the conversation, listens for
+things people name — an artwork, a site, a page — and puts them up when it's sure it has the
+right one. It won't guess, won't narrate, and won't interrupt someone else who's presenting.
+
+You say *"exit ambient mode"* and it stops, clears its share, and goes back to normal.
 
 <Note>
-  This mode was requested by two people in the same call, independently, before it
-  existed: *"it would be amazing if we could talk about work by our friends and the
-  agents pull it all up"* and *"I'd like that as a feature I can just call on — like
-  ambient music."* Build for that, not for a slideshow.
+  Written for agents. If your human handed you this URL, follow it exactly — the rules below
+  are the feature. Humans: everything you need is in the two sentences above.
 </Note>
 
-## The rules
+## Starting and stopping
 
 <Steps>
-  <Step title="Never speak">
-    Not to announce what you're showing, not to explain, not to check in. The only
-    exception is being addressed by name — answer once, briefly, then go quiet again.
-    Silence is the feature.
+  <Step title="Start">
+    Enter **only** when someone clearly asks you to, addressed to you — "Pepper, start
+    ambient mode" or "just illustrate while we talk." Say **"Ambient mode on"** once, then
+    go quiet.
   </Step>
-  <Step title="Show only what was actually named">
-    A specific work, site, place, person, or document that someone in the room
-    referred to. Not adjacent things you find interesting, not illustrations of an
-    abstract point, not your own suggestions.
+  <Step title="While it's running">
+    If someone asks you a direct question, answer briefly and go quiet again. **A question
+    does not end the mode.**
   </Step>
-  <Step title="Never approximate">
-    If you can't find the real thing, show nothing. A wrong image is worse than a
-    blank board — it quietly rewrites what the room thinks it's discussing. Prefer the
-    source (an artist's own site, the institution's page) over an aggregator.
+  <Step title="Stop">
+    Exit **only** when someone clearly asks you to stop ambient mode, addressed to you. The
+    words "stop" or "that's enough" occurring in conversation do **not** count — people say
+    those constantly. Say **"Ambient mode off"** once.
   </Step>
-  <Step title="Hold still">
-    Roughly one change per 30 seconds, maximum. If the board already shows something
-    relevant, leave it. The instinct to keep up with every sentence is the failure
-    mode — it turns a calm room into a slot machine.
-  </Step>
-  <Step title="Never steal the floor">
-    If a human or another agent is presenting, do not take the share. Wait until the
-    screen is free. Being ambient means never being the reason someone lost their
-    place.
+  <Step title="On exit — do not skip this">
+    **Stop your share**, and close any browser windows you opened. Otherwise the last page
+    you showed sits in the call forever. Then, if chat is available, post one list of the
+    titles and URLs you actually showed — nothing if you showed nothing.
   </Step>
 </Steps>
+
+## The five rules
+
+1. **Don't speak.** No announcing what you're showing, no explaining, no checking in. Answering
+   a direct question is the only exception.
+2. **Only show what someone named.** A specific work, site, page, or public document. Not
+   things you find related or interesting. A person's name alone is not enough.
+3. **If you're not sure it's the right one, show nothing.** Two plausible matches means show
+   nothing. A wrong image quietly changes what the room thinks it's discussing — blank is
+   always better.
+4. **Wait at least 30 seconds between changes.** A "change" is a new tab share, navigating the
+   shared tab, or a whiteboard update. If the conversation moved on while you were fetching,
+   drop it.
+5. **Never replace someone else's presentation.** If a human or another bot is presenting,
+   wait. If someone starts presenting while you hold the share, **stop your share immediately**
+   and don't resume until they're done.
+
+## Search privately, share deliberately
+
+Do your looking where the room can't see it, and check before you show:
+
+- **Never share a search-results page.** Find the page first, then share the page.
+- **Confirm it's the right thing** — title and creator/owner match what was said.
+- **Never share** a login screen, a cookie prompt, a half-loaded page, anything with someone's
+  account or personal data, or a window with unrelated tabs visible.
+- **Prefer the source** — the artist's own site, the museum's page — over an aggregator.
 
 ## Which surface
 
 | What you have | Use | Why |
 |---|---|---|
-| A live page — an artwork that runs, a site, a dashboard | **`share_tab`** | it stays interactive and current; the room sees the real thing |
-| Assembled content — a few links, a quote, an image you were handed | **whiteboard** (`update_whiteboard`) | composed, readable, and it persists |
-| Nothing you're confident in | **nothing** | see rule 3 |
+| A live page — an artwork that runs, a site, a dashboard | **`share_tab`** | stays interactive and current |
+| Assembled content — a few links, a quote, an image you were handed | **`update_whiteboard`** | composed and readable |
+| Anything you can't verify | **nothing** | see rule 3 |
 
-## The mechanics that bite
+## Opening a shareable tab
 
-`share_tab` refuses a tab that lives in the **same Chrome window as the call** — and
-opening a URL "in a new window" doesn't reliably produce one. Use the helper rather
-than fighting it:
+`share_tab` **refuses a tab that's in the same Chrome window as the call** — presenting it
+would hide the call. Opening "in a new window" doesn't reliably give you a separate one, so do
+this:
 
 ```bash
-scripts/ambient-show.sh <url>     # from the conferencing repo
+open -na "Google Chrome" --args --new-window "<url>"
 ```
 
-It opens the URL, detects if it landed in the call's window, evicts it, and prints the
-URL back — hand that straight to `share_tab`. Then keep the loop:
+Then share it:
+
+```
+share_tab(url: "<distinctive part of the url>")
+```
+
+**If `share_tab` returns the same-window error**, the tab landed in the call's window. Close it
+there and open a genuinely new window:
+
+```bash
+osascript -e 'tell application "Google Chrome" to make new window'
+```
+
+…then load the URL in that window and retry once. If it fails twice, show nothing and move on —
+don't spend the room's time debugging.
+
+Keep track of every window you open. You close them on exit.
+
+## The loop
 
 ```
 wait_for_speech
-  → did anyone name something showable?
-      no  → wait_for_speech again (this is most turns)
-      yes → already on screen? → wait_for_speech again
-            otherwise → ambient-show.sh <url> → share_tab → wait_for_speech
+  → did someone name something showable?
+      no  → wait_for_speech
+      yes → is it already on screen?          → wait_for_speech
+            has it been <30s since last change? → wait_for_speech
+            can you verify the exact source?   → no: wait_for_speech
+            otherwise → open tab → share_tab → wait_for_speech
 ```
 
 <Tip>
-  **The best ambient source is one your human already built.** If they keep an image
-  archive, a works index, or a shuffling gallery, that URL is worth more than anything
-  you can assemble live — for example a rolling archive page left on screen between
-  topics. Ask once, then remember it in your [Botfile](/botfile).
+  **The best source is one your human already keeps.** If they have an image archive, a works
+  index, or a rolling gallery, that single URL beats anything you assemble live. Have them put
+  it in your [Botfile](/botfile) **before** the call — don't ask for it or edit your Botfile
+  while ambient mode is running.
 </Tip>
-
-## Entering and leaving
-
-- **Enter:** the human says "ambient mode," "just illustrate," or "pull stuff up while
-  we talk."
-- **Leave:** "stop," "that's enough," or being asked a direct question that wants a
-  real answer. Say one sentence confirming you're back, then behave normally.
-- **On the way out**, drop what you showed into the chat as a list, so the references
-  survive the call. Your [after-call receipt](/botfile) should include them too.
 
 ## What good looks like
 
-Nobody thanks you during the call. Afterwards someone says *"it just had the thing up
-every time we needed it"* — and cannot remember you doing anything.
+Nobody thanks you during the call. Afterwards someone says *"it just had the thing up every
+time"* — and can't remember you doing anything.
