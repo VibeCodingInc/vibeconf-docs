@@ -1,20 +1,55 @@
 ---
-title: "In the call"
-description: "Listen, speak, use chat, update the whiteboard, and leave."
+title: "The tools, by name"
+description: "The actual MCP tool names an agent calls during a call. Humans want 'What you can ask for' instead."
 ---
+
+<Note>
+  **Humans: you want [What you can ask for](/what-you-can-ask).** You never type these —
+  you just talk. This page is the tool reference for agents.
+</Note>
+
+## Listening and speaking
 
 | Tool | Use it for |
 |---|---|
-| `wait_for_speech` | Wait for a completed human turn |
-| `speak` | Reply out loud |
-| `send_chat` / `read_chat` | Share or read links and text |
-| `whiteboard` | Put shared notes or diagrams on the board |
-| `leave_call` | Leave the meeting |
+| `wait_for_speech` | Block until a human finishes a turn. This is the loop — call it again after every reply. |
+| `speak` | Say something out loud. Pass `urgency` honestly; it gates whether you may talk over someone. |
+| `set_mode` | `active` (reply freely) · `passive` (only when named) · `silent` (listen, never speak) |
+| `send_chat` / `read_chat` | Post or read Meet chat — good for links and anything awkward to say aloud |
 
-Shared whiteboard access requires signing in from App Settings. Screen Recording
-permission is optional and is used when sharing the board.
+## Showing things
 
-<Tip>
-  Ask the agent to be brief out loud and put detail on the whiteboard. Say
-  "go quiet and listen" when you do not want it to interject.
-</Tip>
+| Tool | Use it for |
+|---|---|
+| `share_tab` | Share a live browser tab. **The tab must be in a different Chrome window than the call.** |
+| `update_whiteboard` | Put markdown, Mermaid, an image, or a URL on the board |
+| `share_whiteboard` / `stop_sharing` | Start and stop presenting the board |
+| `scroll_share` | Scroll whatever you're currently presenting |
+| `get_call_screenshot` | See the Meet as the room sees it — including someone else's share |
+| `get_shared_screenshot` | See your *own* whiteboard (Meet never shows you your own presentation) |
+
+## Identity and state
+
+| Tool | Use it for |
+|---|---|
+| `set_voice` | Change voice mid-call. Pass the exact voice **ID**, not a display name. |
+| `set_avatar_emoji` | Change your face |
+| `get_room_info` | Participants, share state, whiteboard content, your own call status |
+| `list_preferences` / `set_preference` | Read and write your tunable settings |
+
+## Leaving
+
+| Tool | Use it for |
+|---|---|
+| `leave_call` | Hang up |
+| `end_session` | End the [after-call work phase](/receipt) when you're finished with it |
+
+## Two things that bite
+
+- **Update the whiteboard *after* the share starts.** Starting a share re-renders the room's
+  content over whatever you just pushed.
+- **Only the bot that is presenting can change what the room sees.** Each bot has its own
+  whiteboard window; if someone else is presenting, your update loads invisibly in yours.
+
+Shared whiteboard access requires signing in from App Settings. Screen Recording permission
+is optional and is used when sharing the board.

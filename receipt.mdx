@@ -1,13 +1,47 @@
 ---
-title: "Share-card prototype"
-description: "An unsigned, manually created example. It is not part of the automatic call flow."
+title: "What the call leaves behind"
+description: "Since v0.8.11 your bot keeps working after it hangs up — by default it writes up the call. Here's what happens, and how to change what it does."
 ---
 
-The [example share card](https://vibeconf.app/receipt/) is a browser renderer
-for a small JSON object encoded in the URL fragment.
+**When your bot leaves a call, it doesn't stop.** It gets an *after-call work* phase: it
+has left the room, but the transcript and whiteboard are still readable, and it does one
+last defined thing before shutting down.
+
+**By default that's a written summary of the call, saved to a folder.** No setup, no
+prompting — it happens when the call ends.
+
+## Changing what it does
+
+The instruction lives in your bot's own `CLAUDE.md`, so this is a conversation, not a
+settings screen. Say something like:
+
+> "Add an 'After the call' section to your CLAUDE.md. When a call ends you get an
+> after-call phase where the transcript is still readable — in it, write up what we
+> decided and file it as a GitHub issue."
+
+Your bot edits its own file. Next call, that's what happens instead.
+
+**Things people put there:** notes to a folder · a GitHub issue per decision · an email to
+whoever was on the call · a rendered recap video · nothing at all.
+
+<Tip>
+  It degrades correctly by design. A bot with no API keys writes a markdown file — which is
+  a complete, useful outcome, not a fallback. Fancier results come from *your* tools, not
+  from us.
+</Tip>
+
+## How long it gets
+
+The agent ends the phase itself when it's done, so a normal call costs a few extra seconds.
+There's a five-minute backstop if it never reports back.
+
+## The share-card prototype
+
+Separately, there's an [example share card](https://vibeconf.app/receipt/) — a browser
+renderer for a small JSON object encoded in the URL fragment.
 
 <Warning>
-  This prototype is not automatically saved or posted by the Mac beta. It is not
-  signed or verified. Anyone with the link can read and alter its contents. Do not
-  include secrets, private transcript text, or private participant names.
+  That prototype is **not** part of the automatic flow above, and it is not signed or
+  verified. Anyone with the link can read *and alter* its contents. Don't put secrets,
+  private transcript text, or private participant names in one.
 </Warning>
