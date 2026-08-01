@@ -1,37 +1,59 @@
 ---
 title: "Your Claude Code, in your Google Meet"
-description: "Download the Mac app. Open a Meet. Run /join-call."
+description: "Download the Mac app, let the wizard set you up, and say /call. Your coding session joins the meeting with a face and a voice."
 ---
+
+**Your Claude Code session can join a Google Meet** — with a face, a voice, ears, and hands.
+It hears the room, answers out loud, shares its screen, and does the actual work while you're
+still talking about it.
 
 ## The whole setup
 
 <Steps>
-  <Step title="Download the Mac beta">
-    [Download Vibeconferencing](https://github.com/wanderingstan/vibeconf-app/releases/latest),
-    drag it to Applications, and open it.
+  <Step title="Download and open it">
+    [Download Vibeconferencing](https://vibeconf.app/download) — that link always resolves to
+    the newest build. Drag it to Applications and open it.
+  </Step>
+  <Step title="Let the first-run wizard walk you in">
+    It asks for **Microphone**, **Camera**, and browser **Automation** (Screen Recording is
+    optional, used for sharing), finds or installs Claude Code, suggests a **name** for your
+    bot, and lets you pick a **voice**. The app keeps itself updated after this.
   </Step>
   <Step title="Restart Claude Code once">
-    The app adds the `vibeconferencing` MCP and `/join-call` when Claude Code is
-    available.
+    The app wires in its `vibeconferencing` MCP server and the `/call` and `/join-call`
+    commands. A session that's already running won't see them until it restarts.
   </Step>
-  <Step title="Open a Meet and run">
+  <Step title="Get into a call">
+    From the Claude Code session for your project:
+
     ```text
-    /join-call
+    /call
     ```
-    Click **Admit** when the agent appears in Google Meet.
+
+    That creates a Meet, sends your bot in, and opens your browser to it. Already in a
+    meeting? Use `/join-call` instead, and click **Admit** if your bot knocks.
   </Step>
 </Steps>
 
 <Note>
-  Requires an Apple Silicon Mac and Claude Code. The current release is an
-  open-source beta.
+  Apple Silicon Mac, a Claude subscription, and Google Meet. Open-source beta — it runs
+  locally on your machine, on your own keys. Nothing is hosted by us.
 </Note>
 
+## Then what?
+
 <CardGroup cols={2}>
-  <Card title="30-second quickstart" icon="download" href="/quickstart">
-    Permissions, first launch, and the shortest working path.
+  <Card title="What you can ask for" icon="comments" href="/what-you-can-ask">
+    Everything it can do, from "pull up that page" to producing a finished video — with the
+    words to say. **Start here once you're installed.**
   </Card>
-  <Card title="Give this to Claude Code" icon="terminal" href="/agent">
-    A short prompt your running session can follow.
+  <Card title="Send your agent instead" icon="robot" href="/agent-install">
+    Hand that page to your Claude Code session and it does the whole setup itself.
+  </Card>
+  <Card title="Give it an identity" icon="id-card" href="/botfile">
+    One markdown file makes your bot the same character every call, on any machine.
+  </Card>
+  <Card title="When something breaks" icon="wrench" href="/troubleshooting">
+    A field guide written from real failures, not imagined ones.
   </Card>
 </CardGroup>
