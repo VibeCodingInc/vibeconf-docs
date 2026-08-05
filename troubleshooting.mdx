@@ -163,5 +163,8 @@ you how. Reproducible bugs graduate to
 
 <Note>
   App open + Meet open -> `/join-call` -> **Admit** (check the ⋮ menu).
-  When in doubt: the app is probably fine — look before restarting.
+  When in doubt: look before restarting — the app is usually fine. The known
+  exception: joins silently going nowhere *after* a previous call ended means
+  the app is wedged, and quit-and-reopen is the fix
+  ([#254](https://github.com/wanderingstan/vibeconf-app/issues/254)).
 </Note>

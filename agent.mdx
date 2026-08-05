@@ -56,6 +56,14 @@ working call.
     Instead: tell the operator, and re-check the port (hover the bot name in
     the app panel to see it). Restarting is the operator's decision, made in
     the app, not yours.
+
+    **The one exception (operators, not agents):** if the app is *wedged after
+    a call ended* — joins are accepted but nothing ever navigates, and the old
+    call's "screen is still visible" dialog is on screen — quitting and
+    reopening the app **is** the recovery
+    ([#254](https://github.com/wanderingstan/vibeconf-app/issues/254)). The
+    never-restart rule protects live calls and mid-admission joins; it is not
+    a vow to keep a dead state alive.
   </Accordion>
   <Accordion title="2. The name is locked at join" icon="id-badge">
     Whatever name the bot joins the Meet under is fixed for the whole call —

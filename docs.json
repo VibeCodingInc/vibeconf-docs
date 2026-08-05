@@ -40,7 +40,7 @@
     "primary": {
       "type": "button",
       "label": "Download Mac beta",
-      "href": "https://github.com/wanderingstan/vibeconf-app/releases/latest"
+      "href": "https://vibeconf.app/download"
     }
   },
   "redirects": [
