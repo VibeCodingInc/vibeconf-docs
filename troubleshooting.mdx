@@ -76,8 +76,34 @@ line before reaching for a restart.
   </Accordion>
 
   <Accordion title="The app cannot find the Meet" icon="video">
-    Open the Meet in your browser and run `/join-call` again. You can also pass
-    the full Meet URL to `join_call`.
+    Open the Meet in your browser and run `/join-call` again — or skip detection
+    entirely: **copy the Meet URL, paste it into your Claude Code session, and say
+    "join that call."** That path works even when auto-detection doesn't (it's how
+    a beta user solved this in the field), and `/join-call <url>` accepts the full
+    URL too.
+  </Accordion>
+
+  <Accordion title="The wrong bot joined — you have more than one" icon="shuffle">
+    **What it means:** with several bot profiles installed, a bare `/join-call`
+    drives the **default** profile — which today is the *first one you created*,
+    not the one you used most recently. If Jessica was on your last call but
+    Taylor shows up, this is why. (And if a bot "promised" it would join your next
+    call — it can't arrange that on its own; the promise doesn't survive the call.)
+
+    **Fix:** name the bot you want: `/join-call <meet-code> Jessica` — the name
+    selects the profile. `list_call_instances` shows which profiles are running
+    and targetable.
+  </Accordion>
+
+  <Accordion title="The bot won't stop presenting" icon="rectangle-xmark">
+    **What it means:** occasionally the stop-share command reports sent but Meet
+    keeps showing the bot as presenting — the share is wedged app-side. Seen in
+    the field two days running; a fix is in the queue.
+
+    **Fix:** anyone in the call can end it from Meet's side — **⋮ on the bot's
+    tile → "Remove presentation."** The bot stays in the call and keeps working;
+    only the stuck share is dropped. Meanwhile the bot can keep updating the
+    board content, so nothing is lost.
   </Accordion>
 
   <Accordion title="The bot joined under the wrong name" icon="id-badge">
@@ -152,6 +178,28 @@ line before reaching for a restart.
     screenshot its own share to confirm what the room sees.
   </Accordion>
 </AccordionGroup>
+
+## When it's actually wedged — the recovery ladder
+
+Most "broken" states above fix themselves without a restart, which is why every entry
+says look first. But real wedges exist. Climb this ladder in order — each rung is less
+destructive than the one below it:
+
+1. **Look.** Hover the bot's name in the app panel — the tooltip shows the live local
+   port. App running + port answering = not wedged; the problem is one of the entries
+   above.
+2. **Re-drive, don't restart.** A bot that seems stuck mid-call usually has a stalled
+   session, not a stalled app: tell your Claude Code session to call `get_room_info`
+   and continue. Never kill the app *during* a call — you'll strand a zombie tile in
+   the Meet that the host has to remove.
+3. **Rejoin.** If the bot's session is truly gone (session crashed, laptop slept),
+   a fresh `/join-call` to the same Meet re-enters cleanly — leave first if the old
+   tile is still in the room, then rejoin (leave → rejoin, never a second join on top).
+4. **Quit and reopen the app** — the one known case that *requires* it: joins silently
+   going nowhere **after a previous call ended** means the app is wedged
+   ([#254](https://github.com/wanderingstan/vibeconf-app/issues/254)). Quit from the
+   menu bar, reopen, `/join-call` again. Note the app may come back on a different
+   port (it walks up from 7865) — see the first entry on this page.
 
 ## Still stuck?
 
