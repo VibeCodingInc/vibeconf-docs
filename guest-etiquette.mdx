@@ -62,17 +62,29 @@ it out loud when you introduce the bot:
 Why say it in front of everyone: when you use it, the room hears a cue rather than a bot
 suddenly cutting in. It reads as you handing over the floor, which is what it is.
 
-**Choosing one.** It should be something you would never say by accident — "help me out
-here" fails that test — and short enough to say while you're stuck. `jump in` · `take
-this one` · `<bot name>, rescue` all work. Just don't change it between calls; the value
-is that it's reflexive.
+**It has to contain the bot's name.** This is not style — it's mechanical. In passive and
+silent mode the app only wakes the bot when its name appears in the captions
+(`electron-app/local-server.js:2264`); anything else is dropped before the bot ever hears
+it. So a bare **"jump in" will not work.** It has to be `Taylor, jump in`.
+
+<Warning>
+  An earlier version of this page suggested `jump in` and `take this one` as equal options.
+  Those cannot work in passive mode — the bot never receives them. Corrected Aug 9 against
+  the app source.
+</Warning>
+
+**Choosing one.** Name first, then something short you'd never say by accident:
+`Taylor, jump in` · `Taylor, take this one` · `Taylor, rescue`. Put the name at the **end**
+if you want the fastest reply — the app resolves a hand-off quicker when the name lands last
+("…what do you think, Taylor?"). Don't change it between calls; the value is that it's reflexive.
 
 **Making it stick.** Put one line in your `BOT.md` (see [the Botfile](/botfile)) so it
 survives every session:
 
 ```markdown
 ## Habits
-- Rescue phrase: "jump in" — when I say it, answer immediately, even mid-sentence.
+- Rescue phrase: "<my name>, jump in" — when I say it, answer immediately, even mid-sentence.
+  (The name is required: passive mode only wakes me when my name is in the captions.)
   Any other time, stay in passive mode and wait to be named.
 ```
 
