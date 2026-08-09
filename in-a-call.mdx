@@ -5,8 +5,8 @@ noindex: true
 ---
 
 <Note>
-  **Humans: you want [What you can ask for](/what-you-can-ask).** You never type these —
-  you just talk. This page is the tool reference for agents.
+  **Humans: you never type these — you just talk.** This page is the tool reference for
+  the agent driving your bot.
 </Note>
 
 ## Listening and speaking
@@ -15,7 +15,7 @@ noindex: true
 |---|---|
 | `wait_for_speech` | Block until a human finishes a turn. This is the loop — call it again after every reply. |
 | `speak` | Say something out loud. Pass `urgency` honestly; it gates whether you may talk over someone. |
-| `set_mode` | `active` (reply freely) · `passive` (only when named) · `silent` (listen, never speak) |
+| `set_mode` | `active` (reply freely) · `passive` (speaks only when named) · `silent` (never speaks). ⚠️ **Passive AND silent both name-gate `wait_for_speech`** — unnamed conversation is dropped before you see it (`local-server.js:2245-2272`). Silent is not "hear everything, say nothing." |
 | `send_chat` / `read_chat` | Post or read Meet chat — good for links and anything awkward to say aloud |
 
 ## Showing things
@@ -25,17 +25,17 @@ noindex: true
 | `share_tab` | Share a live browser tab. **The tab must be in a different Chrome window than the call.** |
 | `update_whiteboard` | Put markdown, Mermaid, an image, or a URL on the board |
 | `start_share` / `stop_sharing` | Start and stop presenting. `start_share` is the primary — it takes `share_type`, `title_bar`, and a size. (`share_whiteboard` still exists as an older alias; prefer `start_share`.) |
-| `click_share` / `type_share` / `inspect_dom` | **Drive** what's on the board — operate a web app live in front of the room. Find targets with `inspect_dom` and pass a selector, not coordinates. |
+| `click_share` / `type_share` / `inspect_dom` | **Drive** what's on the board — operate a web app live in front of the room. Prefer selectors found with `inspect_dom`; `click_share` also accepts `x`/`y` for canvases, maps, and other content selectors can't reach (`server.js:1844-1907`). |
 | `set_share_title_bar` / `set_share_size` / `set_share_audio` | Shape of the shared window, and whether the room hears its audio |
 | `scroll_share` | Scroll whatever you're currently presenting |
-| `get_call_screenshot` | See the Meet as the room sees it — including someone else's share |
+| `get_call_screenshot` | See **your own** Meet view — including someone else's share. (Meet has no canonical room view; layouts differ per participant.) |
 | `get_shared_screenshot` | See your *own* whiteboard (Meet never shows you your own presentation) |
 
 ## Identity and state
 
 | Tool | Use it for |
 |---|---|
-| `set_voice` | Change voice mid-call. Pass the exact voice **ID**, not a display name. |
+| `set_voice` | Change voice mid-call. Accepts exact OS voice names, Voicebox names/IDs, and ElevenLabs names/IDs (`server.js:939-1071`) — use `list_voices` for what's on this machine. |
 | `set_avatar_emoji` | Change your face |
 | `get_room_info` | Participants, share state, whiteboard content, your own call status |
 | `list_preferences` / `set_preference` | Read and write your tunable settings |
@@ -47,12 +47,18 @@ noindex: true
 | `leave_call` | Hang up |
 | `end_session` | End the [after-call work phase](/receipt) when you're finished with it |
 
-## Two things that bite
+## The board is ROOM state, not yours
 
-- **Update the whiteboard *after* the share starts.** Starting a share re-renders the room's
-  content over whatever you just pushed.
-- **Only the bot that is presenting can change what the room sees.** Each bot has its own
-  whiteboard window; if someone else is presenting, your update loads invisibly in yours.
+- **One whiteboard per room, shared by every bot.** `update_whiteboard` writes room state and
+  `start_share` presents that state (`main.js:1073-1103`, `:3481-3483`) — so any bot's update
+  changes what the room sees, and updating *before* you share is fine; nothing overwrites it.
+- Corollary: if another bot is presenting, **don't** `start_share` — just `update_whiteboard`
+  and your content appears on the board that's already up. Re-sharing grabs the presentation.
+
+<Note>
+  An earlier revision of this page said the opposite on both points (per-bot boards, update
+  only after sharing). Both were wrong against source — corrected Aug 9.
+</Note>
 
 Shared whiteboard access requires signing in from App Settings. Screen Recording permission
 is optional and is used when sharing the board.

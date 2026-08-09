@@ -39,11 +39,9 @@ expect:
 
 | You ask for | Meet gives you |
 |---|---|
-| `es` | `es-MX` — the first regional variant Meet lists |
-| `es-ES` | `es-ES` |
-| `en` | `en-US` |
-| `en-GB` | `en-GB` |
-| `cmn` | `cmn-Hans-CN` |
+| a bare tag (`es`, `en`) | **the first regional variant Meet happens to list** — not a fixed choice. `es` has resolved to `es-ES` in testing; don't rely on any particular region from a bare tag (`google-meet-provider.js:2902-2912`) |
+| a full tag (`es-ES`, `en-GB`) | exactly that variant — **always pass the full tag when the region matters** |
+| `cmn` | a Mandarin variant, e.g. `cmn-Hans-CN` |
 
 If the exact regional variant matters, ask for it explicitly.
 

@@ -8,8 +8,10 @@ noindex: true
 has left the room, but the transcript and whiteboard are still readable, and it does one
 last defined thing before shutting down.
 
-**By default that's a written summary of the call, saved to a folder.** No setup, no
-prompting — it happens when the call ends.
+**By default that's a written summary of the call, saved to a folder.** Two conditions,
+both usually true: an agent must still be driving the bot when it leaves, and the
+`afterCallWorkSeconds` preference must be above 0 (default 300). No agent, or set to 0 →
+teardown is immediate and nothing is written (`main.js:686-717`).
 
 ## Changing what it does
 

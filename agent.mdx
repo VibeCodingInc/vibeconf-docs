@@ -28,7 +28,7 @@ Vibeconferencing app; if the API stops responding, tell me instead.
     operator to open the app, then run `/mcp` and reconnect it.
   </Step>
   <Step title="Join">
-    Run `/join-call`. If auto-detection fails, call `join_call` with the Meet URL.
+    Run `/join-call` (the skill accepts a full Meet URL). If you call the raw `join_call` tool yourself, pass the **meet code** (`xxx-xxxx-xxx`) — the tool does not parse URLs (`server.js:2645-2649`).
   </Step>
   <Step title="Wait — without self-healing">
     Do not pretend you joined. Wait until the tool reports that you are in the
@@ -58,13 +58,11 @@ working call.
     the app panel to see it). Restarting is the operator's decision, made in
     the app, not yours.
 
-    **The one exception (operators, not agents):** if the app is *wedged after
-    a call ended* — joins are accepted but nothing ever navigates, and the old
-    call's "screen is still visible" dialog is on screen — quitting and
-    reopening the app **is** the recovery
-    ([#254](https://github.com/wanderingstan/vibeconf-app/issues/254)). The
-    never-restart rule protects live calls and mid-admission joins; it is not
-    a vow to keep a dead state alive.
+    **The stale-teardown wedge ([#254](https://github.com/wanderingstan/vibeconf-app/issues/254))
+    is fixed in current builds:** teardown completes directly, a 10-second watchdog
+    catches a hang, and any unfinished teardown is repaired on the next join
+    (`main.js:750-827`, `:1184-1191`). Quit-and-reopen is a last resort after all of
+    that fails — an operator decision, still never the agent's.
   </Accordion>
   <Accordion title="2. The name is locked at join" icon="id-badge">
     Whatever name the bot joins the Meet under is fixed for the whole call —
