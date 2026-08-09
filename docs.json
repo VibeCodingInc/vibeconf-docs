@@ -53,6 +53,42 @@
     {
       "source": "/network",
       "destination": "/"
+    },
+    {
+      "source": "/what-you-can-ask",
+      "destination": "/"
+    },
+    {
+      "source": "/quickstart",
+      "destination": "/"
+    },
+    {
+      "source": "/agent-install",
+      "destination": "/"
+    },
+    {
+      "source": "/botfile",
+      "destination": "/"
+    },
+    {
+      "source": "/troubleshooting",
+      "destination": "/"
+    },
+    {
+      "source": "/ambient",
+      "destination": "/"
+    },
+    {
+      "source": "/guest-etiquette",
+      "destination": "/"
+    },
+    {
+      "source": "/recording",
+      "destination": "/"
+    },
+    {
+      "source": "/skills-make-a-picture",
+      "destination": "/"
     }
   ],
   "footer": {
