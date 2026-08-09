@@ -17,30 +17,21 @@
         "group": "Start here",
         "pages": [
           "index",
-          "quickstart",
-          "what-you-can-ask",
           "first-hour",
-          "agent-install",
-          "agent",
-          "botfile",
-          "troubleshooting"
+          "agent"
         ]
       },
       {
         "group": "In the call",
         "pages": [
-          "ambient",
-          "guest-etiquette",
           "in-a-call",
           "caption-language",
-          "recording",
           "receipt"
         ]
       },
       {
         "group": "Skills",
         "pages": [
-          "skills-make-a-picture",
           "skills-ship-it-live",
           "skills-leave-a-receipt"
         ]
