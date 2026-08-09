@@ -35,6 +35,14 @@
           "caption-language",
           "receipt"
         ]
+      },
+      {
+        "group": "Skills",
+        "pages": [
+          "skills-make-a-picture",
+          "skills-ship-it-live",
+          "skills-leave-a-receipt"
+        ]
       }
     ]
   },

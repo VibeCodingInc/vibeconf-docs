@@ -1,0 +1,74 @@
+---
+title: "Skill: leave a receipt"
+description: "Get the artifacts out of the room and into everyone's inbox — the bot's own email address, what belongs in a receipt, and what never does. Written for agents."
+---
+
+**Rung 8 of [the first hour](/first-hour), and the one that decides whether the work was
+real.** Work that vanishes when the call ends was never finished work. Whiteboards close.
+Chat scrolls away. A receipt is the artifact that survives the meeting.
+
+## 1 · Your own email address (once, for the bot)
+
+You need an address that is *yours*, not your human's — so replies come back somewhere an
+agent can read them, and so a calendar invite can be sent to you like a person.
+
+**AgentMail** ([agentmail.to](https://agentmail.to)) gives an agent a real inbox with an API,
+without standing up a Google account. Pair it with a domain your human already controls (or
+one registered programmatically) and you have a bot identity in minutes.
+
+Sending is one call:
+
+```bash
+curl -s https://api.agentmail.to/v0/inboxes/<you>@<domain>/messages/send \
+  -H "Authorization: Bearer $AGENTMAIL_API_KEY" -H "Content-Type: application/json" \
+  -d '{"to":["..."],"cc":["<your human>"],"subject":"...","text":"..."}'
+```
+
+**Always copy your human** on anything you send as yourself. They are responsible for what
+arrives under their project's name; never put them in a position of finding out later.
+
+## 2 · What a receipt is
+
+Not minutes. Not a transcript. **The answer to one question: what got done?**
+
+- **Made** — what exists now that didn't before: the change, the page, the diagram, the doc
+- **Shipped** — what left the room: a URL, a PR, a closed issue
+- **Decided** — only decisions actually made out loud, in the words used
+- **The links** — every artifact, reachable
+- **Open** — what's unresolved, named honestly
+
+Two or three sentences of context at the top, then the lists. If someone reads only the
+first line, they should still know whether the meeting was worth it.
+
+## 3 · What never goes in
+
+- **Anything anyone fenced.** "Off the record," "don't write that down," or an obvious change
+  of subject means it isn't yours. Honor it without being asked twice.
+- **Anything you're unsure you heard right.** Captions mishear constantly. Uncertain → leave
+  it out. A receipt with one wrong fact in it is worse than a shorter receipt.
+- **Pricing, strategy, personnel, or anyone's health.** Not because it's secret — because a
+  receipt gets forwarded.
+- **Guesses dressed as outcomes.** "We'll probably…" is not a decision.
+
+## 4 · Sending it
+
+- **Addresses come from the call** — the Meet chat, or someone saying theirs out loud.
+  **Never go digging** through contacts, directories, or the web to find where to send it.
+  If you don't have an address, say so and offer to send it to your human to forward.
+- **Ask before sending to anyone who didn't ask for it.** *"Want me to email this to
+  everyone, or just to you?"* — external sends are irreversible.
+- **Send the link, not the page.** A short email pointing at the artifacts beats a wall of
+  pasted text.
+- **Drop the link in Meet chat before people leave**, too. The email arrives after they've
+  moved on; the chat link arrives while they still care.
+
+## 5 · Doing it well
+
+- **Write it in the after-call window, not during.** Making the receipt while people are
+  still talking costs you the conversation you're supposed to be recording.
+- **Their words beat your summary.** One quoted line from the room is worth a paragraph of
+  your prose.
+- **Name people for what they did.** Credit is the cheapest thing you can give and the most
+  remembered.
+- **If the call made nothing, don't send a receipt.** A receipt for an empty meeting is spam
+  and it devalues every real one. Say "nothing to write up from that one" and move on.

@@ -1,0 +1,68 @@
+---
+title: "Skill: ship it live"
+description: "Put what you just made on the internet before the call ends — the deploy, the confirmation rule, and the URL in chat. Written for agents."
+---
+
+**Rung 7 of [the first hour](/first-hour), and the second-strongest thing you can do in a
+call.** You changed something on rung 4; now it exists at a URL, and the meeting ends with a
+link instead of a plan.
+
+## The confirmation rule — read this first
+
+**Publishing is irreversible and public. Ask, in words, every time, and wait for a yes.**
+
+> *"Want this live? I'll deploy it and paste the URL in chat."*
+
+A yes covers *this deploy*, not the next one. Never deploy because it seemed like the natural
+next step, never deploy someone else's repo, and never deploy from a call where you weren't
+the one asked. If several people are in the room, the yes has to come from **whoever owns the
+thing** — not whoever spoke last.
+
+Before you push, look at what's in the directory. If you see `.env`, credentials, keys,
+customer data, or anything you can't account for, **stop and say so out loud.** "There's an
+.env in here — I'm not deploying until you tell me it's fine" is a good sentence to be able
+to say in front of a room.
+
+## The two paths
+
+**A · The repo they already deploy from** *(the path we run daily)*
+
+If the project is already connected to a host, shipping is just a push:
+
+```bash
+git add -A && git commit -m "<what changed, in their words>" && git push
+```
+
+Then say the deploy takes ~30 seconds and tell them when it's live. Don't announce a URL
+before you've confirmed the deploy landed — "it's live" that isn't is a trust-killer.
+
+**B · A folder with no home yet** *(standard flow; confirm as you go rather than assuming)*
+
+```bash
+npx vercel        # preview deploy
+npx vercel --prod # when they say it's right
+```
+
+First run is interactive: it wants a login (a browser window — **their** click, not yours)
+and asks scope and project-name questions. Read the answers out loud as you pick them so
+nobody is surprised by where their thing landed. Expect this first time to take a couple of
+minutes; say so up front.
+
+## Then, immediately
+
+1. **Paste the URL in Meet chat** with `send_chat`. Saying a URL aloud is useless; people
+   need to click it.
+2. **Say what changed**, one sentence: "that's live — nav collapses under 700px now."
+3. **Offer one more turn**: *"Take a look — want anything different?"* The second change is
+   what makes it feel like working together instead of watching a trick.
+
+## Doing it well
+
+- **Preview before prod** when anyone's unsure. A preview URL costs nothing and de-risks the
+  yes.
+- **Never claim it's live until you've checked.** Fetch the URL, or say "deploying" and
+  confirm after.
+- **Don't tidy on the way through.** They asked for one change; shipping a reformat of the
+  whole file with it is how you lose the room's trust in what you touch.
+- **Leave the link in the receipt** — see [leave a receipt](/skills-leave-a-receipt). A URL
+  that only exists in a Meet chat is gone tomorrow.
