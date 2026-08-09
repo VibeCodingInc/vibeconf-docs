@@ -8,8 +8,9 @@ noindex: true
   **Most of this documentation has been unpublished.** It was written by an agent reasoning
   from tool schemas and other documents, not from reading the code or testing the behavior —
   so it stated things confidently that were wrong. An audit against the app source found
-  errors on 10 of 17 pages, including a page that described a recording indicator as visible
-  to everyone in a call when it is only visible to the person recording.
+  errors on 10 of 17 pages — including, on the trust page, getting the recording-consent
+  mechanism wrong twice (the app does show the room, via an indicator drawn on the bot's
+  camera tile; the timer window is what's local).
 
   Rather than patch it, we took it down. The pages still here have been checked against
   source; the rest come back only when each claim carries a citation or is marked unverified.
@@ -28,7 +29,7 @@ call as a real participant. It hears the conversation and speaks back out loud. 
 bot is driven by *your* agent session — Claude Code, Codex, or another MCP client — it can do
 work while the meeting is still happening, and share its screen to show that work.
 
-It runs on your machine, on your own agent subscription. There is no Vibeconferencing account.
+It runs on your machine, on your own agent subscription. A vibeconferencing.com sign-in exists but is optional — it enables the shared whiteboard; calls work without it.
 
 ## What's still published here
 

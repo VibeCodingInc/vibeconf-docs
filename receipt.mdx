@@ -11,7 +11,7 @@ last defined thing before shutting down.
 **By default that's a written summary of the call, saved to a folder.** Two conditions,
 both usually true: an agent must still be driving the bot when it leaves, and the
 `afterCallWorkSeconds` preference must be above 0 (default 300). No agent, or set to 0 →
-teardown is immediate and nothing is written (`main.js:686-717`).
+teardown is immediate and nothing is written (gate: `main.js:686-717` · default: `preferences-schema.js:104-108`).
 
 ## Changing what it does
 

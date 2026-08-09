@@ -63,9 +63,11 @@ Why say it in front of everyone: when you use it, the room hears a cue rather th
 suddenly cutting in. It reads as you handing over the floor, which is what it is.
 
 **It has to contain the bot's name.** This is not style — it's mechanical. In passive and
-silent mode the app only wakes the bot when its name appears in the captions
-(`electron-app/local-server.js:2264`); anything else is dropped before the bot ever hears
-it. So a bare **"jump in" will not work.** It has to be `Taylor, jump in`.
+silent mode the bot's turn only resolves when its name appears in the captions
+(`electron-app/local-server.js:2250-2271`); unnamed speech is held back, not surfaced to the
+agent until a named turn arrives. So a bare **"jump in" will not wake it.** It has to be
+`Taylor, jump in`. (And a **silent** bot still won't speak even when named — silent rejects
+speech outright (`local-server.js:1057`); the rescue phrase is a *passive*-mode tool.)
 
 <Warning>
   An earlier version of this page suggested `jump in` and `take this one` as equal options.
@@ -75,8 +77,8 @@ it. So a bare **"jump in" will not work.** It has to be `Taylor, jump in`.
 
 **Choosing one.** Name first, then something short you'd never say by accident:
 `Taylor, jump in` · `Taylor, take this one` · `Taylor, rescue`. Put the name at the **end**
-if you want the fastest reply — the app resolves a hand-off quicker when the name lands last
-("…what do you think, Taylor?"). Don't change it between calls; the value is that it's reflexive.
+if you want the fastest reply — a name at the end of an utterance shortens the silence
+threshold before the bot replies (`local-server.js:2252-2280`). Don't change it between calls; the value is that it's reflexive.
 
 **Making it stick.** Put one line in your `BOT.md` (see [the Botfile](/botfile)) so it
 survives every session:
