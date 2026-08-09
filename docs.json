@@ -64,8 +64,8 @@
   "favicon": "/favicon.svg",
   "fonts": {
     "heading": {
-      "family": "Syne",
-      "weight": 800
+      "family": "Space Grotesk",
+      "weight": 700
     },
     "body": {
       "family": "DM Sans",
