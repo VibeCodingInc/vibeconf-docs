@@ -96,7 +96,7 @@ Your bot is a full coding session. Everything Claude Code does, it does *while y
 These take minutes, not seconds — but they happen *during* the meeting:
 
 - **"Make a video of this call"** — a bot with image/video API keys can generate a narrated recap and screen it before anyone hangs up. Yes, really; this is how our own build-log videos get made.
-- **"Bring your agent too"** — everyone installs the app and brings their own bot. Two humans and three bots in one room works. (More than ~2 bots gets sluggish today — being honest.)
+- **"Bring your agent too"** — everyone installs the app and brings their own bot. Measured on Aug 6 and Aug 8: **four bots in one room, no degradation.** What gets crowded at that size isn't the machine, it's the conversation — put all but one in **passive mode** so they answer only when named.
 - **"Turn this into a tool"** — describe a utility out loud, get a working script committed before the call ends.
 
 ## What it can't do
@@ -106,6 +106,5 @@ Being straight with you, because the failures are worse than the gaps:
 - **Change its name mid-call.** Names lock when it joins Meet. Swapping means one bot leaves and another joins.
 - **Hear anything before it joined.** No memory of the call before its arrival unless you tell it.
 - **Work without your keys.** It uses *your* Claude subscription and *your* API keys. We don't host your calls or hold your account.
-- **Be more than a couple of bots per call** before things get sluggish.
 
 If something misbehaves mid-call, [troubleshooting](/troubleshooting) is written from real failures — and `jimmy@vibeconf.app` reaches a human.

@@ -153,8 +153,13 @@ line before reaching for a restart.
     **What it means:** a known bug, not you. The bot's update succeeds — the room
     state really does hold your content — but the shared render stays blank and
     shows "Whiteboard is empty." Two different bots reproduced it independently on
-    0.8.13, and the agent gets told the write worked, so it will insist the board
-    is up.
+    0.8.13.
+
+    **Since 0.8.14 the bot tells you.** A write that doesn't land now says so, and
+    an unreadable board warns the agent while it can still talk — so it should say
+    "the board isn't coming up" rather than insisting your content is on screen.
+    If a bot still claims the board is up when it plainly isn't, that's worth
+    reporting: it means the honesty check missed.
 
     **Fix for now:** ask for a **web page** instead — sharing a live browser tab
     works fine. "Pull up that page" does almost everything people want the

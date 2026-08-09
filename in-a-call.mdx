@@ -23,7 +23,9 @@ description: "The actual MCP tool names an agent calls during a call. Humans wan
 |---|---|
 | `share_tab` | Share a live browser tab. **The tab must be in a different Chrome window than the call.** |
 | `update_whiteboard` | Put markdown, Mermaid, an image, or a URL on the board |
-| `share_whiteboard` / `stop_sharing` | Start and stop presenting the board |
+| `start_share` / `stop_sharing` | Start and stop presenting. `start_share` is the primary — it takes `share_type`, `title_bar`, and a size. (`share_whiteboard` still exists as an older alias; prefer `start_share`.) |
+| `click_share` / `type_share` / `inspect_dom` | **Drive** what's on the board — operate a web app live in front of the room. Find targets with `inspect_dom` and pass a selector, not coordinates. |
+| `set_share_title_bar` / `set_share_size` / `set_share_audio` | Shape of the shared window, and whether the room hears its audio |
 | `scroll_share` | Scroll whatever you're currently presenting |
 | `get_call_screenshot` | See the Meet as the room sees it — including someone else's share |
 | `get_shared_screenshot` | See your *own* whiteboard (Meet never shows you your own presentation) |
