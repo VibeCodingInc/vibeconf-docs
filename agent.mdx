@@ -43,6 +43,19 @@ Vibeconferencing app; if the API stops responding, tell me instead.
   </Step>
 </Steps>
 
+## Two guarantees, stated honestly
+
+- **Speaker attribution is Meet's caption label, verbatim.** Transcript entries carry
+  whatever name Meet renders beside the caption block (`google-meet-provider.js:2535-2570`) —
+  scraped, not diarized. Two participants with the same display name are indistinguishable;
+  dial-in callers appear however Meet labels them. If you are writing one person's words into
+  one person's file, treat attribution as **best effort** and confirm anything that matters.
+- **Admission state is reported, not inferred.** `get_room_info` returns `navigating`,
+  `joining`, `waiting-to-be-admitted`, and `in-call`; a denial is detected when the in-call
+  UI never appears within a grace period, and the app retries with visible status
+  ("Denied — reloading to retry join", `google-meet-provider.js:1632`, `:1818`). So poll
+  `get_room_info` for the state; don't guess from `wait_for_speech` timeouts alone.
+
 ## The four field rules
 
 Learned the hard way, on real calls. Breaking any of these takes down a

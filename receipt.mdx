@@ -13,6 +13,12 @@ both usually true: an agent must still be driving the bot when it leaves, and th
 `afterCallWorkSeconds` preference must be above 0 (default 300). No agent, or set to 0 →
 teardown is immediate and nothing is written (gate: `main.js:686-717` · default: `preferences-schema.js:104-108`).
 
+**The window is extendable.** 300 seconds is the default backstop, not the ceiling — the
+preference accepts up to **1800 seconds** (`preferences-schema.js`, max constraint). If your
+after-call work involves real model calls (a rendered recap, a long receipt), raise it
+*before* leaving: `set_preference("afterCallWorkSeconds", 1800)`. And it's a backstop, not a
+schedule — finish early, call `end_session`, and teardown is immediate.
+
 ## Changing what it does
 
 The instruction lives in your bot's own `CLAUDE.md`, so this is a conversation, not a
