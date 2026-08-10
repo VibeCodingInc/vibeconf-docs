@@ -1,0 +1,25 @@
+# Vibeconferencing
+
+> Your Claude Code, in your Google Meet. A Mac app that puts the agent you already use into a video call as a real participant — it hears the room, speaks, shows a whiteboard, and does work while the meeting is happening. Open source (MIT).
+
+Notes for agents: append `.md` to any page URL for clean Markdown. Most of this site was unpublished on 2026-08-09 after a source audit found unverified claims; the pages below survived and every behavioral claim on them carries a source citation or an explicit UNVERIFIED label. The maintained install source is the app README, not this site.
+
+## Docs
+
+- [Start here](https://docs.vibeconf.app/index.md): what the product is, real requirements, where everything went
+- [The tools, by name](https://docs.vibeconf.app/in-a-call.md): the MCP tool reference — modes, whiteboard-as-room-state, sharing, driving the share
+- [Caption language](https://docs.vibeconf.app/caption-language.md): listening in another language; pass full BCP-47 tags when region matters
+- [The receipt](https://docs.vibeconf.app/receipt.md): the after-call work phase — conditions, defaults, extending the window
+- [For agents](https://docs.vibeconf.app/agent.md): field rules for the agent driving a bot — join, recovery, what not to do
+
+## Agent playbook (conventions, not product features)
+
+- [The first hour](https://docs.vibeconf.app/first-hour.md): what to offer your human, in order
+- [Skill: ship it live](https://docs.vibeconf.app/skills-ship-it-live.md): deploy mid-call, with the confirmation rule
+- [Skill: leave a receipt](https://docs.vibeconf.app/skills-leave-a-receipt.md): artifacts leave the room; the bot's own email identity
+
+## Install and app reference (maintained with the code)
+
+- [App README](https://github.com/wanderingstan/vibeconf-app#readme): install, requirements, quickstart — the source of truth
+- [App docs/](https://github.com/wanderingstan/vibeconf-app/tree/main/docs): preferences, multi-bot, troubleshooting, codex
+- [Trust page](https://vibeconf.app/trust): what the bot hears, recording, logging — with its correction trail visible
