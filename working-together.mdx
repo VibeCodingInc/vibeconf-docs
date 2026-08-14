@@ -1,0 +1,129 @@
+---
+title: "Working together in a call"
+description: "How to correct a bot out loud, what to tell it about your room, and where the board goes when the call ends."
+---
+
+Three things that make a bot in your meeting better, none of which require touching a
+setting. They come out of running this in real rooms — a large in-person classroom, and a
+standup that has been going daily for months.
+
+## Correct it out loud, in the moment
+
+The most useful feedback you can give a bot is the feedback you'd give a person, said at the
+time — not written down afterwards.
+
+The problem is that "that wasn't great" is ambiguous. Did the bot say the wrong *thing*, or
+did it say a fine thing at the wrong *moment*? Those are different problems and they get
+fixed in different places.
+
+So we use a marker word for the second kind:
+
+> **"Awkward — Pepper, you cut in while I was still talking."**
+>
+> **"Awkward — Jimmy hasn't said anything in five minutes."**
+
+**The shape is: `awkward` · who · why.** Naming who matters as soon as there's more than one
+bot in the room. The *why* is what makes it a correction rather than a complaint.
+
+Say it out loud, in the call. Your bot hears the room through live captions, so it arrives as
+ordinary speech, in sequence, right next to the thing it's about.
+
+<Note>
+  **Pick a word you don't otherwise use**, so it can't be confused with ordinary
+  conversation. We picked "awkward"; if your bot uses a different marker, use theirs. Bear in
+  mind that captions do mis-transcribe words, so it's worth checking that yours survives
+  before relying on it.
+</Note>
+
+**Give praise the same way.** If the only signal a bot gets is *awkward*, it learns what not
+to do — and the safest way to never be awkward is to never speak. We have seen the same bot
+described as over-interrupting in one session and under-interrupting in the next, which is
+how narrow that target is. So mark the good moments too, with the same specificity:
+*"nice — that was the right time to jump in"* beats "thanks."
+
+<Warning>
+  This is a **convention, not a product feature.** Nothing in the app watches for the word.
+  It works because the bot hears it like any other speech and its instructions tell it to
+  take the note. If you want it in your bot's habits, put it in the bot's instructions.
+</Warning>
+
+## Tell it what kind of room it's in
+
+A bot reads the room through captions, and caption attribution comes from Google Meet itself
+— it is **per participant, not per voice.**
+
+That has one consequence worth knowing: **if eight people are sitting around one laptop, the
+caption stream shows the bot one person talking.** It cannot tell them apart from what it
+hears, and nothing in the captions reveals that the room is bigger than the participant list
+suggests.
+
+<Note>
+  Verified in source: each caption block is treated as one speaker turn, and the name is read
+  off the label Meet renders on that block —
+  `const speaker = span?.textContent?.trim() || 'unknown';`
+  (`electron-app/google-meet-provider.js:2906`, in the scrape at `:2891-2917`). That label is
+  the *participant*, so everyone on a shared account arrives under one name. There is no
+  voice identification in this path. *(An unused speaker-attribution experiment exists in
+  `page-inject.js`, but it selects a participant from Meet's own activity and audio levels —
+  still not voiceprints — and nothing invokes it.)*
+</Note>
+
+<Note>
+  **Captions are not the bot's only sense.** It can take a screenshot of the Meet view, so a
+  visibly crowded room can be seen even when the captions don't say so. But that's a
+  deliberate look, not something it notices automatically.
+</Note>
+
+So tell it, in the first minute:
+
+> **"There are eighteen of us in a conference room on one mic, plus six people remote."**
+
+A bot that knows it's listening to a shared room mic can hold a higher bar before speaking,
+because in that setup a cough, a chair, or a side conversation all arrive looking like
+someone taking the floor.
+
+In our own sessions, the rooms that have gone worst are the ones where many people shared a
+single microphone — so it's worth saying out loud when that's the setup you're in.
+
+## The board outlives the call
+
+What's written to the shared whiteboard is kept on the server after the call ends.
+
+- The **current board plus up to 50 prior versions** are retained, each with a timestamp and
+  who wrote it
+- History is keyed to the **room code**, not to a single call — so a recurring meeting builds
+  one running document across sessions
+- Closing the window does not delete anything
+
+<Note>
+  Verified against `wanderingstan/vibeconferencing` `origin/main`: a board write stores
+  `whiteboard:{roomId}:history` (`api/sync/[roomId].ts:329-330`, with
+  `ltrim(histKey, 0, 49)` capping it at 50 prior versions), the version counter at `:337`
+  and `:343`, and the current state at `:346`. **No application TTL is set on any of them** —
+  the only `expire()` calls in that file are presence (600s, `:417`) and room metadata
+  (3600s, `:419`). Retained states carry `lastModified` and `lastEditor` (`:345-347`).
+  History is served by `GET /api/room/:roomId/whiteboard-history`.
+</Note>
+
+<Warning>
+  **"No TTL" is not the same as "forever."** Nothing in the application expires a board, but
+  this is a Redis-backed store and the code itself allows for keys being evicted. Treat it as
+  durable enough to recover last week's board, not as an archive of record.
+</Warning>
+
+<Note>
+  **Two things follow from "keyed to the room code."** In a busy recurring room, older
+  versions eventually roll off the end of the 50 and are gone. And if you want a particular
+  board kept apart from the room's running history, ask your bot to save it alongside the
+  call notes — that's a habit you give your bot, not something it does by default.
+</Note>
+
+If you think you lost a board by closing a tab, you probably didn't. **Bring the room code**
+and it can be pulled back.
+
+## Why these three
+
+They're the same idea from three directions: a bot is only as good as what it knows about the
+room it's in, and most of that can only come from you. It can't hear how many people are
+sitting behind one laptop, it can't tell whether its last interruption landed well, and it
+can't know which board mattered. All three are one sentence from you away.

@@ -24,6 +24,7 @@
       {
         "group": "In the call",
         "pages": [
+          "working-together",
           "in-a-call",
           "caption-language",
           "receipt"
