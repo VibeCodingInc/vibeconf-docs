@@ -4,7 +4,7 @@
   "name": "Vibeconferencing",
   "description": "Your Claude Code, in your Google Meet.",
   "colors": {
-    "primary": "#0E9E93",
+    "primary": "#0A736B",
     "light": "#7FDED4",
     "dark": "#0A736B"
   },
@@ -40,6 +40,12 @@
     ]
   },
   "navbar": {
+    "links": [
+      {
+        "label": "Been invited to a call?",
+        "href": "https://vibeconf.app/guest"
+      }
+    ],
     "primary": {
       "type": "button",
       "label": "Download Mac beta",
@@ -94,25 +100,24 @@
   ],
   "footer": {
     "socials": {
-      "github": "https://github.com/wanderingstan/vibeconf-app",
-      "website": "https://vibeconf.app"
+      "x": "https://x.com/vibeconf",
+      "github": "https://github.com/wanderingstan/vibeconf-app"
     }
   },
   "favicon": "/favicon.svg",
   "fonts": {
     "heading": {
-      "family": "Space Grotesk",
-      "weight": 700
+      "family": "Syne",
+      "weight": 800
     },
     "body": {
-      "family": "DM Sans",
-      "weight": 400
+      "family": "DM Sans"
     }
   },
   "background": {
     "color": {
       "light": "#F5ECD6",
-      "dark": "#0F1613"
+      "dark": "#1A1512"
     }
   }
 }
